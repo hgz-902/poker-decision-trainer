@@ -1,6 +1,6 @@
 import { Scenario, ScenarioMeta } from "./types";
 
-const BASE = "http://localhost:4000";
+const BASE = import.meta.env.VITE_API_URL ?? "";
 
 export async function fetchScenarioList(): Promise<ScenarioMeta[]> {
   const res = await fetch(`${BASE}/api/scenarios`);
