@@ -1,6 +1,13 @@
 import React, { useMemo } from "react";
 import { Player, Position } from "../types";
 import Card from "./Card";
+import { useScaleToFit } from "../hooks/useScaleToFit";
+import "./PokerTable.css";
+
+
+  const BASE_W = 980;
+const BASE_H = 520;
+const { outerRef, scale } = useScaleToFit(BASE_W);
 
 function shortPosLabel(pos: Position) {
   return pos;
@@ -8,6 +15,7 @@ function shortPosLabel(pos: Position) {
 
 function actionBadgeStyle(text: string): React.CSSProperties {
   const t = text.toUpperCase();
+
   const base: React.CSSProperties = {
     display: "inline-flex",
     alignItems: "center",
@@ -72,8 +80,19 @@ export default function PokerTable({
   const centerBoard = board ?? [];
 
   return (
-    <div className="pdt-table-outer">
-    <div className="pdt-table-scale">
+    <div className="pdt-table-outer" ref={outerRef}>
+    <div
+      className="pdt-table-scaleSpacer"
+      style={{ height: `${BASE_H * scale}px` }}
+    >
+      <div
+        className="pdt-table-scaleWrap"
+        style={{
+          width: `${BASE_W}px`,
+          height: `${BASE_H}px`,
+          transform: `scale(${scale})`,
+        }}
+      >
     <div style={{ border: "1px solid #ddd", borderRadius: 14, padding: 12, overflow: "hidden" }}>
       <div style={{ marginBottom: 10, display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
         <div style={{ color: "#555" }}>
@@ -247,6 +266,7 @@ export default function PokerTable({
       <div style={{ marginTop: 10, color: "#666", fontSize: 12 }}>
         * 초기 Action Log(블라인드/폴드)를 파싱해서 좌석 상태에 반영합니다.
       </div>
+    </div>
     </div>
     </div>
     </div>

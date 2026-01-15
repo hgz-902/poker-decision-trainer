@@ -1,0 +1,19 @@
+.pdt-table-outer {
+  width: 100%;
+}
+
+/* outer 안에서 스케일링 된 영역이 잘리지 않도록 */
+.pdt-table-scaleWrap {
+  transform-origin: top left;
+}
+
+.pdt-table-scaleSpacer {
+  width: 100%;
+}
+
+/* 모바일에서 테이블 카드가 너무 꽉 차면 여백 조금 */
+@media (max-width: 520px) {
+  .pdt-table-outer {
+    padding: 4px 0;
+  }
+}
