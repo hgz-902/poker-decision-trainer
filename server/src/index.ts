@@ -29,12 +29,29 @@ app.get("/api/scenarios/:id", async (req, res) => {
 });
 
 // --------------------
-// ✅ Production: serve client/dist
+// ✅ Production: serve client/dist (robust path)
 // --------------------
-const clientDistPath = path.resolve(process.cwd(), "../client/dist");
-const clientIndexHtml = path.join(clientDistPath, "index.html");
+const candidates = [
+  // 1) repo root가 cwd인 경우
+  path.resolve(process.cwd(), "client/dist"),
+  // 2) server 폴더가 cwd인 경우
+  path.resolve(process.cwd(), "../client/dist"),
+  // 3) dist 기준으로 한 번 더 (혹시 더 깊은 위치에서 실행되는 경우)
+  path.resolve(process.cwd(), "../../client/dist"),
+];
 
-if (fs.existsSync(clientDistPath) && fs.existsSync(clientIndexHtml)) {
+let clientDistPath = "";
+for (const p of candidates) {
+  const indexHtml = path.join(p, "index.html");
+  if (fs.existsSync(p) && fs.existsSync(indexHtml)) {
+    clientDistPath = p;
+    break;
+  }
+}
+
+if (clientDistPath) {
+  const clientIndexHtml = path.join(clientDistPath, "index.html");
+
   app.use(express.static(clientDistPath));
 
   // SPA fallback (React Router)
@@ -42,13 +59,17 @@ if (fs.existsSync(clientDistPath) && fs.existsSync(clientIndexHtml)) {
     if (req.path.startsWith("/api")) return res.status(404).end();
     res.sendFile(clientIndexHtml);
   });
+
+  console.log("[static] serving:", clientDistPath);
 } else {
-  // dist가 없을 때 디버깅용
+  // dist가 없을 때 디버깅용 (Render에서 cwd/시도경로 확인 가능)
   app.get("/", (_req, res) => {
     res
       .status(200)
       .send(
-        `Client build not found. Expected: ${clientDistPath}\nBuild client first (client/dist).`
+        `Client build not found.\n` +
+          `cwd=${process.cwd()}\n` +
+          `tried:\n- ${candidates.join("\n- ")}\n`
       );
   });
 }
