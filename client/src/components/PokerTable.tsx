@@ -5,9 +5,7 @@ import { useScaleToFit } from "../hooks/useScaleToFit";
 import "./PokerTable.css";
 
 
-  const BASE_W = 980;
-const BASE_H = 520;
-const { outerRef, scale } = useScaleToFit(BASE_W);
+
 
 function shortPosLabel(pos: Position) {
   return pos;
@@ -59,6 +57,9 @@ export default function PokerTable({
 }) {
   const sorted = useMemo(() => players.slice().sort((a, b) => a.seat - b.seat), [players]);
   const hpos = useMemo(() => heroPos(players), [players]);
+    const BASE_W = 980;
+const BASE_H = 520;
+const { outerRef, scale } = useScaleToFit(BASE_W);
 
   const seatCoords = useMemo(() => {
     const coords: Array<{ leftPct: number; topPct: number }> = [];
