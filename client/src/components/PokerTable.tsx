@@ -72,6 +72,8 @@ export default function PokerTable({
   const centerBoard = board ?? [];
 
   return (
+    <div className="pdt-table-outer">
+    <div className="pdt-table-scale">
     <div style={{ border: "1px solid #ddd", borderRadius: 14, padding: 12, overflow: "hidden" }}>
       <div style={{ marginBottom: 10, display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
         <div style={{ color: "#555" }}>
@@ -245,6 +247,8 @@ export default function PokerTable({
       <div style={{ marginTop: 10, color: "#666", fontSize: 12 }}>
         * 초기 Action Log(블라인드/폴드)를 파싱해서 좌석 상태에 반영합니다.
       </div>
+    </div>
+    </div>
     </div>
   );
 }
