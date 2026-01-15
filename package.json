@@ -1,11 +1,8 @@
 {
-  "name": "poker-decision-trainer",
+  "name": "poker-decision-trainer-root",
   "private": true,
-  "workspaces": ["client", "server"],
-  "devDependencies": {
-    "concurrently": "^9.0.0"
-  },
   "scripts": {
-    "dev": "concurrently -n server,client -c auto \"npm -w server run dev\" \"npm -w client run dev\""
+    "build": "npm ci --prefix client && npm ci --prefix server && npm run build --prefix client && npm run build --prefix server",
+    "start": "npm run start --prefix server"
   }
 }
