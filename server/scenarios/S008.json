@@ -1,0 +1,73 @@
+{
+  "id": "S008",
+  "title": "리버 블러프캐치: 팟오즈로 콜/폴드 결정 (조합수 사고)",
+  "tags": ["Postflop", "River", "BluffCatcher", "PotOdds"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 55 },
+      { "seat": 2, "pos": "UTG1", "stack": 55 },
+      { "seat": 3, "pos": "UTG2", "stack": 55 },
+      { "seat": 4, "pos": "LJ",   "stack": 55 },
+      { "seat": 5, "pos": "HJ",   "stack": 55, "isUser": true },
+      { "seat": 6, "pos": "CO",   "stack": 55 },
+      { "seat": 7, "pos": "BTN",  "stack": 55 },
+      { "seat": 8, "pos": "SB",   "stack": 55 },
+      { "seat": 9, "pos": "BB",   "stack": 55 }
+    ]
+  },
+  "initialState": {
+    "street": "RIVER",
+    "board": ["Kd", "9h", "4s", "2c", "Qc"],
+    "pot": 30.5,
+    "heroHoleCards": ["9s", "9d"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ CALL 1BB",
+      "CO RAISE_TO 5.0",
+      "BTN folds",
+      "SB folds",
+      "BB folds",
+      "HJ CALL 5.0",
+      "Flop: Kd 9h 4s",
+      "HJ CHECK",
+      "CO BET 3.5",
+      "HJ CALL 3.5",
+      "Turn: 2c",
+      "HJ CHECK",
+      "CO BET 6.0",
+      "HJ CALL 6.0",
+      "River: Qc",
+      "HJ CHECK",
+      "CO BET 12.0"
+    ],
+    "toActPos": "HJ",
+    "currentBet": 12.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 Qc. CO가 12BB 베팅. HJ의 99(셋)로 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "팟오즈: 12를 콜해서 이기면 (30.5 + 12) = 42.5를 얻습니다. 필요한 최소 승률은 12/42.5 ≈ 28.2%입니다.",
+        "라인상 CO는 Kx 밸류뿐 아니라 미스드 드로우/블러프도 섞일 수 있어, 99는 그 블러프를 충분히 잡을 수 있습니다.",
+        "즉 ‘블러프 비중이 28% 이상’이라고 판단되면 콜이 +EV가 됩니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

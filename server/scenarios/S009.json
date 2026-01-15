@@ -1,0 +1,60 @@
+{
+  "id": "S009",
+  "title": "MTT 18BB: 버튼 오픈 후 SB 3bet 셔브 대응 (매몰비용 교정)",
+  "tags": ["Tournament", "Preflop", "3betShove", "PotOdds", "MentalGame"],
+  "difficulty": 5,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 18 },
+      { "seat": 2, "pos": "UTG1", "stack": 22 },
+      { "seat": 3, "pos": "UTG2", "stack": 26 },
+      { "seat": 4, "pos": "LJ",   "stack": 20 },
+      { "seat": 5, "pos": "HJ",   "stack": 24 },
+      { "seat": 6, "pos": "CO",   "stack": 30 },
+      { "seat": 7, "pos": "BTN",  "stack": 18, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 18 },
+      { "seat": 9, "pos": "BB",   "stack": 40 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 1.5,
+    "heroHoleCards": ["Aq", "Jd"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.2",
+      "SB ALL_IN 18.0",
+      "BB folds"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 18.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "BTN 오픈 후 SB가 18BB 셔브. AJo로 어떻게 할까요?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "FOLD",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "토너먼트 18BB 구간에서 SB 셔브는 종종 ‘상대가 콜할 때’ 꽤 타이트해지며, AJo는 도미네이션 위험이 큽니다.",
+        "핵심 심리: 이미 오픈한 2.2BB는 ‘매몰비용’입니다. 남은 스택을 넣는 결정은 팟오즈/에퀴티로 새로 판단해야 합니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

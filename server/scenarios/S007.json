@@ -1,0 +1,94 @@
+{
+  "id": "S007",
+  "title": "턴 오버벳: 레인지 우위 보드에서 최대 압박 (턴→리버)",
+  "tags": ["Postflop", "Turn", "River", "Overbet", "RangeAdvantage"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 90 },
+      { "seat": 2, "pos": "UTG1", "stack": 90 },
+      { "seat": 3, "pos": "UTG2", "stack": 90 },
+      { "seat": 4, "pos": "LJ",   "stack": 90 },
+      { "seat": 5, "pos": "HJ",   "stack": 90 },
+      { "seat": 6, "pos": "CO",   "stack": 90, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 90 },
+      { "seat": 8, "pos": "SB",   "stack": 90 },
+      { "seat": 9, "pos": "BB",   "stack": 90 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["As", "Kd", "5h", "2c"],
+    "pot": 13.5,
+    "heroHoleCards": ["Ah", "Qc"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN CALL 2.5",
+      "SB folds",
+      "BB folds",
+      "Flop: As Kd 5h",
+      "CO BET 3.5",
+      "BTN CALL 3.5",
+      "Turn: 2c"
+    ],
+    "toActPos": "CO",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 2c. CO의 AQ(탑페어). 여기서 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [6.0, 12.0],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 12.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴 블랭크에서 오버벳은 상대의 Kx/약한 Ax 같은 ‘캡된 콜 레인지’를 최대 압박할 수 있습니다.",
+        "오버벳은 폴드에퀴티 요구치가 높지만, 상대가 두페어+ 비중이 낮고 원페어가 많을수록 기대값이 좋아집니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "BTN CALL 12.0",
+        "DEAL_RIVER 9d",
+        "BTN CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 9d. BTN 체크. CO의 AQ로 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [10.0],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴 오버벳을 콜한 상대는 리버에서 상대적으로 ‘강해진’ 경우가 많아 추가 밸류가 불안정해집니다.",
+        "이 지점은 체크백으로 쇼다운 EV를 지키는 판단을 훈련합니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

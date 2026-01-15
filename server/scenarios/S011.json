@@ -1,0 +1,92 @@
+{
+  "id": "S011",
+  "title": "플랍 레인지 체크백 후 턴 지연 C-bet (GTO+익스플로잇)",
+  "tags": ["Postflop", "Flop", "Turn", "DelayedCbet", "RangePlay"],
+  "difficulty": 5,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 70 },
+      { "seat": 2, "pos": "UTG1", "stack": 70 },
+      { "seat": 3, "pos": "UTG2", "stack": 70 },
+      { "seat": 4, "pos": "LJ",   "stack": 70 },
+      { "seat": 5, "pos": "HJ",   "stack": 70 },
+      { "seat": 6, "pos": "CO",   "stack": 70, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 70 },
+      { "seat": 8, "pos": "SB",   "stack": 70 },
+      { "seat": 9, "pos": "BB",   "stack": 70 }
+    ]
+  },
+  "initialState": {
+    "street": "FLOP",
+    "board": ["Ad", "8c", "4d"],
+    "pot": 5.5,
+    "heroHoleCards": ["Kc", "Qd"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN folds",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Ad 8c 4d",
+      "BB CHECK"
+    ],
+    "toActPos": "CO",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "FLOP",
+      "prompt": "A84r 플랍. CO의 KQ(쇼다운 약함). 플랍에서 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [1.8],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "A-high 드라이 보드에서는 레이저가 레인지 우위가 있지만, 모든 에어를 자동으로 c-bet하는 대신 체크백 라인을 섞는 것이 GTO적으로 중요합니다.",
+        "특히 KQ는 블로커는 있지만 즉시 폴드에퀴티가 불확실하고, ‘턴에서 카드가 떨어진 뒤’ 더 좋은 스팟을 만드는 지연 c-bet 플랜이 유효합니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "FLOP",
+      "scriptActions": [
+        "CO CHECK",
+        "DEAL_TURN 2h",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 2h(블랭크). BB 체크. 지연 C-bet을 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [3.0],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 3.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "플랍 체크백 이후 턴 블랭크에서의 지연 c-bet은 BB의 ‘에어/약한 한쌍’에게 폴드를 강요하기 좋습니다.",
+        "익스플로잇: 많은 필드는 플랍 체크백을 ‘약함’으로 과대해석하고 턴에서 너무 많이 체크-폴드합니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "id": "S014",
+  "title": "리버 블러프캐치: 팟오즈 + 라인으로 콜 결정 (익스플로잇)",
+  "tags": ["Postflop", "River", "BluffCatcher", "PotOdds", "Exploit"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 65 },
+      { "seat": 2, "pos": "UTG1", "stack": 65 },
+      { "seat": 3, "pos": "UTG2", "stack": 65 },
+      { "seat": 4, "pos": "LJ",   "stack": 65 },
+      { "seat": 5, "pos": "HJ",   "stack": 65, "isUser": true },
+      { "seat": 6, "pos": "CO",   "stack": 65 },
+      { "seat": 7, "pos": "BTN",  "stack": 65 },
+      { "seat": 8, "pos": "SB",   "stack": 65 },
+      { "seat": 9, "pos": "BB",   "stack": 65 }
+    ]
+  },
+  "initialState": {
+    "street": "RIVER",
+    "board": ["Ts", "7h", "2d", "2c", "Qh"],
+    "pot": 24.5,
+    "heroHoleCards": ["Th", "9h"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ RAISE_TO 2.5",
+      "CO CALL 2.5",
+      "BTN folds",
+      "SB folds",
+      "BB folds",
+      "Flop: Ts 7h 2d",
+      "HJ BET 2.0",
+      "CO CALL 2.0",
+      "Turn: 2c",
+      "HJ CHECK",
+      "CO BET 6.0",
+      "HJ CALL 6.0",
+      "River: Qh",
+      "HJ CHECK",
+      "CO ALL_IN 54.0"
+    ],
+    "toActPos": "HJ",
+    "currentBet": 54.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 Qh. CO가 오버잼 올인. HJ의 T9(탑페어 약킥)로 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "FOLD",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "라인상 턴에서 CO가 배팅했고, 리버에 Q가 떨어진 뒤 오버잼은 ‘밸류 대표’가 쉬운 라인입니다(Qx, 7x가 강화되거나, 트랩된 강한 핸드).",
+        "익스플로잇: 라이브/MTT 필드에서 ‘리버 오버잼 블러프’ 빈도는 생각보다 낮은 경우가 많아, 탑페어 약킥은 폴드가 표준적입니다.",
+        "심리 함정: ‘탑페어니까 못 폴드’가 아니라, 베팅 사이즈가 커질수록 필요한 승률이 급격히 올라간다는 점을 훈련합니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

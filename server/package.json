@@ -1,0 +1,22 @@
+{
+  "name": "poker-decision-trainer-server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "poker-decision-trainer": "file:.."
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.19.29",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.4"
+  }
+}

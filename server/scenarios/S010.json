@@ -1,0 +1,95 @@
+{
+  "id": "S010",
+  "title": "하이스테이크 스타일: 리버 올인 블러프캐치 (블로커/라인 검증)",
+  "tags": ["Postflop", "Turn", "River", "BluffCatch", "HighStakes"],
+  "difficulty": 8,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 120 },
+      { "seat": 2, "pos": "UTG1", "stack": 120 },
+      { "seat": 3, "pos": "UTG2", "stack": 120 },
+      { "seat": 4, "pos": "LJ",   "stack": 120 },
+      { "seat": 5, "pos": "HJ",   "stack": 120 },
+      { "seat": 6, "pos": "CO",   "stack": 120 },
+      { "seat": 7, "pos": "BTN",  "stack": 120, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 120 },
+      { "seat": 9, "pos": "BB",   "stack": 120 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Tc", "6c", "2h", "Qd"],
+    "pot": 22.0,
+    "heroHoleCards": ["Qh", "Th"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "BB CALL 2.5",
+      "Flop: Tc 6c 2h",
+      "BB CHECK",
+      "BTN BET 3.5",
+      "BB CALL 3.5",
+      "Turn: Qd",
+      "BB CHECK"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 Qd. BTN의 QT(투페어). 여기서 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [7.0],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 7.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴에서 투페어는 밸류 베팅으로 자연스럽고, 상대의 Qx/Tx/드로우에게서 가치를 뽑을 수 있습니다.",
+        "작은 사이즈로 시작해 상대 레인지에서 콜 가능한 구간을 넓게 유지하는 것이 목적입니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "BB CALL 7.0",
+        "DEAL_RIVER Ac",
+        "BB ALL_IN 107.0"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 Ac. BB가 갑자기 오버잼 올인. BTN의 QT(투페어)로 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "FOLD",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "리버 A♣는 BB가 대표적으로 ‘밸류를 만들기 쉬운 카드’입니다(예: A♣x♣ 플러시, A가 포함된 2페어/트립 계열).",
+        "턴 콜 후 리버 오버잼은 블러프도 가능하지만, 밸류 조합이 충분히 많으면 투페어라도 폴드가 표준이 될 수 있습니다.",
+        "핵심은 ‘라인이 밸류를 얼마나 자연스럽게 대표하는가’와 ‘내가 블러프를 몇 개나 이기는가’의 조합수 사고입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

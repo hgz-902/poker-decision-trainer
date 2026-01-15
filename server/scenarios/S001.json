@@ -1,0 +1,62 @@
+{
+  "id": "S001",
+  "title": "40BB CO 오픈 vs BTN 3bet 대응",
+  "tags": ["40BB", "Preflop", "3betPot"],
+  "difficulty": 2,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 40 },
+      { "seat": 2, "pos": "UTG1", "stack": 40 },
+      { "seat": 3, "pos": "UTG2", "stack": 40 },
+      { "seat": 4, "pos": "LJ",   "stack": 40 },
+      { "seat": 5, "pos": "HJ",   "stack": 40 },
+      { "seat": 6, "pos": "CO",   "stack": 40, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 40 },
+      { "seat": 8, "pos": "SB",   "stack": 40 },
+      { "seat": 9, "pos": "BB",   "stack": 40 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 12.0,
+    "heroHoleCards": ["As", "Jd"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN RAISE_TO 8.0",
+      "SB FOLD",
+      "BB FOLD"
+    ],
+    "toActPos": "CO",
+    "currentBet": 8.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "CO가 2.5BB 오픈 후 BTN이 3bet 8BB. CO에서 AJo로 어떻게 할까요?",
+      "legalActions": ["FOLD", "CALL", "ALL_IN"],
+      "correct": {
+        "action": "FOLD",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "핵심은 ‘AJo가 오픈 가능한가’가 아니라, ‘3bet에 방어할 만큼 구조적으로 좋은가’입니다.",
+        "AJo는 BTN 3bet 레인지(AQ/AJ/AT, KQ, TT+ 등)에 자주 도미네이트 당하고 역 implied odds가 큽니다.",
+        "수학적으로도 콜은 5.5BB(8.0-2.5)를 추가로 넣는 의사결정인데, 이때 필요한 에퀴티를 AJo가 안정적으로 충족시키기 어렵습니다.",
+        "심리 함정: “이미 오픈했으니 아까워서 콜(매몰비용)” / “A가 있으니 버티자(블로커 과신)”. 둘 다 -EV를 부르는 대표 패턴입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

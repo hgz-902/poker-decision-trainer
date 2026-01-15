@@ -1,0 +1,95 @@
+{
+  "id": "S003",
+  "title": "플랍 레인지 베팅: BTN 오픈 콜팟에서 K72r (C-bet 빈도/사이징)",
+  "tags": ["Postflop", "Flop", "Cbet", "RangeVsRange"],
+  "difficulty": 4,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 60 },
+      { "seat": 2, "pos": "UTG1", "stack": 60 },
+      { "seat": 3, "pos": "UTG2", "stack": 60 },
+      { "seat": 4, "pos": "LJ",   "stack": 60 },
+      { "seat": 5, "pos": "HJ",   "stack": 60 },
+      { "seat": 6, "pos": "CO",   "stack": 60 },
+      { "seat": 7, "pos": "BTN",  "stack": 60, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 60 },
+      { "seat": 9, "pos": "BB",   "stack": 60 }
+    ]
+  },
+  "initialState": {
+    "street": "FLOP",
+    "board": ["Ks", "7d", "2c"],
+    "pot": 5.5,
+    "heroHoleCards": ["Qh", "Jh"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Ks 7d 2c",
+      "BB CHECK"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "FLOP",
+      "prompt": "BTN에서 QJh. 보드 K72 레인보우. 소액 C-bet(1.8BB)을 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [1.8],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 1.8,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "BTN 오픈 vs BB 콜의 구조에서, K72r 같은 드라이 보드는 레이저가 상위 레인지(강한 Kx, 오버페어)를 더 많이 포함해 레인지 베팅(소액 고빈도)이 자주 쓰입니다.",
+        "팟 5.5BB에 1.8BB(약 33%) 베팅은 필요한 폴드 비율이 약 24.7%(=1.8/(5.5+1.8))로 낮아, 적은 리스크로 즉시 EV를 확보하기 좋습니다.",
+        "심리 함정: ‘에어니까 체크’가 아니라, 레인지 우위/보드 텍스처 때문에 ‘소액으로 많이’가 장기적으로 기대값이 좋아지는 지점이 있습니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "FLOP",
+      "scriptActions": [
+  "BB CALL 1.8",
+  "DEAL_TURN 3h"
+],
+"next": "N3"
+
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴은 3h. (Ks 7d 2c | 3h) 플랍 소액 C-bet이 콜된 뒤, BTN의 QJh는 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [4.5],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "플랍 콜 이후 BB는 Kx/7x/포켓페어/일부 2x 등 ‘쇼다운 가능한 핸드’ 비중이 증가해 더 단단해집니다.",
+        "QJh는 턴 3h로 뚜렷한 개선이 없고, 강한 블로커도 부족해 2배럴 블러프의 폴드에퀴티가 낮아지기 쉽습니다.",
+        "수학 포인트: 2배럴은 (1) 턴 폴드에퀴티 + (2) 리버에서의 추가 폴드 플랜 + (3) 블로커/런아웃 적합성이 합쳐져야 합니다. 여기선 그 조합이 약하므로 체크가 표준입니다.",
+        "심리 함정: ‘플랍 쐈으니 턴도 계속’이라는 관성(오토파일럿)을 끊는 훈련입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

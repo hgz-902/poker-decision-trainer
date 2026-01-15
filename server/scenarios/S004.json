@@ -1,0 +1,98 @@
+{
+  "id": "S004",
+  "title": "리버 얇은 밸류 vs 체크백: CO vs BB 싱글레이즈팟",
+  "tags": ["Postflop", "Turn", "River", "ThinValue", "LineReading"],
+  "difficulty": 5,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 80 },
+      { "seat": 2, "pos": "UTG1", "stack": 80 },
+      { "seat": 3, "pos": "UTG2", "stack": 80 },
+      { "seat": 4, "pos": "LJ",   "stack": 80 },
+      { "seat": 5, "pos": "HJ",   "stack": 80 },
+      { "seat": 6, "pos": "CO",   "stack": 80, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 80 },
+      { "seat": 8, "pos": "SB",   "stack": 80 },
+      { "seat": 9, "pos": "BB",   "stack": 80 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Ah", "9c", "4d", "2s"],
+    "pot": 9.5,
+    "heroHoleCards": ["Ad", "Jc"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN folds",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Ah 9c 4d",
+      "BB CHECK",
+      "CO BET 2.0",
+      "BB CALL 2.0",
+      "Turn: 2s",
+      "BB CHECK"
+    ],
+    "toActPos": "CO",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 2s에서 BB가 체크. CO의 AJ(탑페어 약킥). 턴에서 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [3.0],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴 2s는 보드를 크게 바꾸지 않지만, BB의 플랍 체크-콜 레인지에는 A9/A4/44 같은 강한 핸드, 9x/포켓페어 같은 쇼다운 밸류가 섞여 있습니다.",
+        "여기서 작은 밸류 베팅을 하면 더 약한 핸드에게 콜을 받기도 하지만, 동시에 강한 Ax/셋에게 계속 콜을 허용하고, 일부 필드에선 체크-레이즈 리스크까지 생깁니다.",
+        "수학 포인트: 애매한 ‘얇은 밸류’ 구간에서는, 턴 체크백으로 팟을 컨트롤해 리버에서 쇼다운 EV를 지키는 라인이 분산(리스크)을 줄이기 쉽습니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "CO CHECK",
+        "DEAL_RIVER 2d",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 2d. BB 체크. CO의 AJ로 베팅할까요, 체크백할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [4.0],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴 체크백 이후 리버까지 BB가 체크로 왔을 때, BB는 9x/포켓페어 같은 약한 쇼다운 밸류도 그대로 가지고 도착합니다. 동시에 A9/A4/A2s/22 같은 강한 핸드도 일부 존재할 수 있습니다.",
+        "여기서 얇은 밸류 베팅은 ‘콜해주는 더 약한 핸드(9x/포켓페어)가 얼마나 남아 콜하는지’가 핵심인데, 많은 필드에서는 리버 콜이 Ax 쪽으로 치우치고 약한 핸드는 폴드하는 경향이 있어 기대값이 불안정해집니다.",
+        "수학 포인트: 불확실한 얇은 밸류 구간에서는 체크백이 쇼다운 EV를 지키는 표준 선택이 되는 경우가 많습니다.",
+        "심리 함정: ‘탑페어니까 무조건 한 번 더’라는 자동 밸류 베팅을 끊는 훈련입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

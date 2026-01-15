@@ -1,0 +1,96 @@
+{
+  "id": "S018",
+  "title": "턴에서 밸류+프로텍션 베팅: 스테이션 익스플로잇",
+  "tags": ["Postflop", "Turn", "Value", "Protection", "Exploit"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 60 },
+      { "seat": 2, "pos": "UTG1", "stack": 60 },
+      { "seat": 3, "pos": "UTG2", "stack": 60 },
+      { "seat": 4, "pos": "LJ",   "stack": 60 },
+      { "seat": 5, "pos": "HJ",   "stack": 60, "isUser": true },
+      { "seat": 6, "pos": "CO",   "stack": 60 },
+      { "seat": 7, "pos": "BTN",  "stack": 60 },
+      { "seat": 8, "pos": "SB",   "stack": 60 },
+      { "seat": 9, "pos": "BB",   "stack": 60 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["9d", "6s", "2h", "Qd"],
+    "pot": 10.5,
+    "heroHoleCards": ["9s", "8s"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ RAISE_TO 2.5",
+      "CO folds",
+      "BTN folds",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: 9d 6s 2h",
+      "BB CHECK",
+      "HJ BET 2.0",
+      "BB CALL 2.0",
+      "Turn: Qd",
+      "BB CHECK"
+    ],
+    "toActPos": "HJ",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 Qd. HJ의 98(탑페어 약킥). 턴에서 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [6.0],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 6.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "익스플로잇: 스테이션 성향(너무 많이 콜하는 상대)에게는 체크백으로 공짜 카드를 주기보다, 턴에서 밸류+프로텍션 베팅이 수익적입니다.",
+        "드로우(다이아/스트레이트)와 Qx 같은 더 나쁜 콜들을 상대로 가치를 뽑고, 리버 결정도 쉬워집니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "BB CALL 6.0",
+        "DEAL_RIVER 6d",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 6d(보드 페어 + 플러시 완성 가능). BB 체크. HJ의 98로 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [8.0],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "런아웃이 악화(보드 페어 + 플러시)되면 얇은 밸류가 급격히 위험해집니다.",
+        "턴에서 이미 밸류를 확보했으니, 리버에서는 체크백으로 쇼다운 EV를 지키는 것이 표준입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

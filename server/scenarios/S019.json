@@ -1,0 +1,95 @@
+{
+  "id": "S019",
+  "title": "리버 폴라 밸류 베팅: 강한 핸드는 크게 (GTO 폴라라이즈)",
+  "tags": ["Postflop", "Turn", "River", "Polar", "Value"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 85 },
+      { "seat": 2, "pos": "UTG1", "stack": 85 },
+      { "seat": 3, "pos": "UTG2", "stack": 85 },
+      { "seat": 4, "pos": "LJ",   "stack": 85 },
+      { "seat": 5, "pos": "HJ",   "stack": 85 },
+      { "seat": 6, "pos": "CO",   "stack": 85 },
+      { "seat": 7, "pos": "BTN",  "stack": 85, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 85 },
+      { "seat": 9, "pos": "BB",   "stack": 85 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Kh", "Th", "4c", "2h"],
+    "pot": 13.5,
+    "heroHoleCards": ["Ah", "Qh"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Kh Th 4c",
+      "BB CHECK",
+      "BTN BET 3.0",
+      "BB CALL 3.0",
+      "Turn: 2h",
+      "BB CHECK"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 2h로 넛 플러시 완성(AhQh). BTN은 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [9.0],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 9.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "강한 밸류(넛 플러시)는 턴에서 팟을 키우는 것이 핵심입니다.",
+        "상대의 Kx/Thx/하트 한 장 들고 있는 콜 레인지에서 최대 가치를 뽑는 플랜입니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "BB CALL 9.0",
+        "DEAL_RIVER 9s",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 9s. BB 체크. BTN의 넛 플러시로 어떻게 할까요?",
+      "legalActions": ["CHECK", "ALL_IN"],
+      "correct": {
+        "action": "ALL_IN",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "GTO 폴라: 강한 밸류는 크게, 블러프도 크게. 이 구조가 상대의 블러프캐치 빈도를 강제합니다.",
+        "상대는 강한 하트/셋/투페어로 콜할 수 있고, 그 조합에서 최대 밸류를 얻는 라인입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

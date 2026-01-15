@@ -1,0 +1,92 @@
+{
+  "id": "S012",
+  "title": "3bet 팟 OOP: 플랍 체크-레이즈 세미블러프 → 턴 올인 (SPR)",
+  "tags": ["Postflop", "Flop", "Turn", "CheckRaise", "Semibluff", "3betPot"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 55 },
+      { "seat": 2, "pos": "UTG1", "stack": 55 },
+      { "seat": 3, "pos": "UTG2", "stack": 55 },
+      { "seat": 4, "pos": "LJ",   "stack": 55 },
+      { "seat": 5, "pos": "HJ",   "stack": 55 },
+      { "seat": 6, "pos": "CO",   "stack": 55, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 55 },
+      { "seat": 8, "pos": "SB",   "stack": 55 },
+      { "seat": 9, "pos": "BB",   "stack": 55 }
+    ]
+  },
+  "initialState": {
+    "street": "FLOP",
+    "board": ["Jd", "7d", "3c"],
+    "pot": 16.0,
+    "heroHoleCards": ["Ad", "Td"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.3",
+      "BTN RAISE_TO 7.5",
+      "SB folds",
+      "BB folds",
+      "CO CALL 7.5",
+      "Flop: Jd 7d 3c",
+      "CO CHECK",
+      "BTN BET 5.0"
+    ],
+    "toActPos": "CO",
+    "currentBet": 5.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "FLOP",
+      "prompt": "3bet 팟 플랍 Jd7d3c. CO의 AdTd(너트 플러시 드로우). BTN c-bet 5.0. 어떻게 할까요?",
+      "legalActions": ["FOLD", "CALL", "RAISE"],
+      "raiseOptions": [16.0],
+      "correct": {
+        "action": "RAISE",
+        "sizeBB": 16.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "SPR이 낮은 3bet 팟에서 너트 드로우는 ‘콜로 애매하게 남기기’보다 ‘체크-레이즈로 폴드에퀴티를 추가’하는 라인이 강력합니다.",
+        "상대의 원페어/약한 드로우를 즉시 폴드시키거나, 콜을 받아도 높은 에퀴티로 턴 올인 플랜을 갖습니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "FLOP",
+      "scriptActions": [
+        "BTN CALL 16.0",
+        "DEAL_TURN 2h"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 2h(블랭크). CO는 어떻게 할까요?",
+      "legalActions": ["CHECK", "ALL_IN"],
+      "correct": {
+        "action": "ALL_IN",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "플랍에서 이미 팟이 커졌고, 너트 드로우는 턴에서 올인으로 폴드에퀴티+에퀴티를 동시에 극대화하기 좋습니다.",
+        "익스플로잇: 많은 상대가 ‘체크-레이즈 콜 후 턴’에서 원페어를 과하게 폴드하거나 과하게 콜하는데, 올인은 그 양극단을 모두 벌할 수 있습니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

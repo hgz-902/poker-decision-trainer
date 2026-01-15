@@ -1,0 +1,94 @@
+{
+  "id": "S020",
+  "title": "턴에서 체크백 유도 vs 밸류 베팅: 심리전(오토파일럿 방지)",
+  "tags": ["Postflop", "Turn", "River", "Induce", "MentalGame"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 70 },
+      { "seat": 2, "pos": "UTG1", "stack": 70 },
+      { "seat": 3, "pos": "UTG2", "stack": 70 },
+      { "seat": 4, "pos": "LJ",   "stack": 70 },
+      { "seat": 5, "pos": "HJ",   "stack": 70 },
+      { "seat": 6, "pos": "CO",   "stack": 70, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 70 },
+      { "seat": 8, "pos": "SB",   "stack": 70 },
+      { "seat": 9, "pos": "BB",   "stack": 70 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Ac", "7s", "7d", "3h"],
+    "pot": 11.5,
+    "heroHoleCards": ["Ah", "Jd"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN folds",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Ac 7s 7d",
+      "BB CHECK",
+      "CO BET 2.0",
+      "BB CALL 2.0",
+      "Turn: 3h",
+      "BB CHECK"
+    ],
+    "toActPos": "CO",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 3h. CO의 AJ(탑페어). 턴에서 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [6.0],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "보드가 페어(7x7x)인 상황에서 상대는 트립/풀하우스가 있을 수 있고, 턴에서 얇은 밸류를 무리하게 밀면 리버가 어려워질 수 있습니다.",
+        "심리전/익스플로잇: 턴 체크백은 상대의 블러프(리버 돈크/오버블러프)를 유도하거나, 약한 Ax로도 체크-콜/체크-폴드를 유발할 수 있습니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "CO CHECK",
+        "DEAL_RIVER 2c",
+        "BB BET 6.0"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 2c. BB가 6.0BB 돈크 베팅. CO의 AJ로 어떻게 할까요?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴 체크백 이후 리버 돈크는 블러프가 섞일 수 있는 전형적인 지점입니다(상대가 ‘약해 보인다’고 느끼는 심리).",
+        "AJ는 트립/풀하우스엔 지지만, 상대의 미스드 블러프 빈도가 일정 이상이면 콜이 +EV가 됩니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "id": "S017",
+  "title": "플랍 체크-콜 후 리버 블러프캐치: 빈도 싸움 (GTO 기준)",
+  "tags": ["Postflop", "Turn", "River", "BluffCatch", "Frequency"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 75 },
+      { "seat": 2, "pos": "UTG1", "stack": 75 },
+      { "seat": 3, "pos": "UTG2", "stack": 75 },
+      { "seat": 4, "pos": "LJ",   "stack": 75 },
+      { "seat": 5, "pos": "HJ",   "stack": 75 },
+      { "seat": 6, "pos": "CO",   "stack": 75 },
+      { "seat": 7, "pos": "BTN",  "stack": 75 },
+      { "seat": 8, "pos": "SB",   "stack": 75, "isUser": true },
+      { "seat": 9, "pos": "BB",   "stack": 75 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Kc", "Jc", "5d", "2h"],
+    "pot": 14.5,
+    "heroHoleCards": ["Kd", "9d"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "SB CALL 2.5",
+      "BB folds",
+      "Flop: Kc Jc 5d",
+      "SB CHECK",
+      "BTN BET 3.0",
+      "SB CALL 3.0",
+      "Turn: 2h",
+      "SB CHECK",
+      "BTN BET 6.5"
+    ],
+    "toActPos": "SB",
+    "currentBet": 6.5
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 2h. BTN이 6.5BB 배럴. SB의 K9(탑페어 약킥)로 어떻게 할까요?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "탑페어는 턴 배럴에 대해 일정 빈도로 방어해야 합니다. 너무 많이 폴드하면 상대는 자동으로 2배럴 블러프로 돈을 벌게 됩니다.",
+        "GTO 감각: ‘블러프를 잡기 위해’ 일정 부분은 콜로 버텨야 합니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "DEAL_RIVER 3c",
+        "SB CHECK",
+        "BTN ALL_IN 63.0"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 3c로 플러시가 완성. BTN이 오버잼 올인. SB의 K9로 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "FOLD",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "리버 클럽 완성 카드는 상대의 드로우/블러프가 ‘밸류로 전환’되기 쉬운 카드입니다.",
+        "턴까지는 빈도 싸움으로 콜이 필요했지만, 런아웃이 바뀌면 최적 대응도 바뀝니다(조건부 폴드)."
+      ],
+      "terminal": true
+    }
+  ]
+}

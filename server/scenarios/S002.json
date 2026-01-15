@@ -1,0 +1,62 @@
+{
+  "id": "S002",
+  "title": "25BB BTN 오픈 vs SB 3bet 셔브 (Fold Equity 훈련)",
+  "tags": ["25BB", "Preflop", "3betShove", "FoldEquity"],
+  "difficulty": 3,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 25 },
+      { "seat": 2, "pos": "UTG1", "stack": 25 },
+      { "seat": 3, "pos": "UTG2", "stack": 25 },
+      { "seat": 4, "pos": "LJ",   "stack": 25 },
+      { "seat": 5, "pos": "HJ",   "stack": 25 },
+      { "seat": 6, "pos": "CO",   "stack": 25 },
+      { "seat": 7, "pos": "BTN",  "stack": 25, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 25 },
+      { "seat": 9, "pos": "BB",   "stack": 25 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 4.0,
+    "heroHoleCards": ["As", "5s"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.2",
+      "SB ALL_IN 25.0",
+      "BB folds"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 25.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "BTN 오픈(2.2BB) 이후, SB가 25BB 3bet 셔브. A5s로 콜할까요, 폴드할까요?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "FOLD",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "이 스팟은 ‘오픈이 넓은가’가 아니라 ‘셔브에 콜할 만큼 에퀴티가 있나’의 문제입니다.",
+        "팟오즈 관점: 이미 2.2BB를 넣었고, 이제 추가로 큰 금액을 넣어야 합니다. 필요한 에퀴티(콜 기준 승률)는 상대 셔브 레인지가 타이트할수록 올라갑니다.",
+        "SB의 25BB 3bet 셔브는 많은 필드에서 값이 두껍게(페어/강한 Ax/브로드웨이) 구성되는 편이라 A5s는 도미네이션/러닝아웃 문제로 콜 EV가 불리해지기 쉽습니다.",
+        "심리 함정: ‘A블로커니까 무조건 콜’ 혹은 ‘이미 오픈했으니 아까워서 콜’. sunk cost(매몰비용) 때문에 -EV 콜을 하는 걸 막는 훈련입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

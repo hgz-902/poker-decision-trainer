@@ -1,0 +1,55 @@
+{
+  "id": "S015",
+  "title": "딥스택 칩리더: BTN 33 vs UTG 오픈 + HJ 셔브 + UTG 5bet 셔브",
+  "tags": ["Tournament", "Preflop", "DeepStack", "Squeeze", "ICMless"],
+  "difficulty": 8,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 95 },
+      { "seat": 2, "pos": "UTG1", "stack": 60 },
+      { "seat": 3, "pos": "UTG2", "stack": 55 },
+      { "seat": 4, "pos": "LJ",   "stack": 70 },
+      { "seat": 5, "pos": "HJ",   "stack": 100 },
+      { "seat": 6, "pos": "CO",   "stack": 80 },
+      { "seat": 7, "pos": "BTN",  "stack": 300, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 40 },
+      { "seat": 9, "pos": "BB",   "stack": 50 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 1.5,
+    "heroHoleCards": ["3c", "3d"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG RAISE_TO 2.5",
+      "HJ ALL_IN 12.0"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 12.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "UTG 오픈(2.5) 후 HJ가 12BB 셔브. BTN 딥스택(300BB)에서 33. 어떻게 할까요?",
+      "legalActions": ["FOLD", "CALL", "RAISE"],
+      "raiseOptions": [33.0],
+      "correct": {
+        "action": "FOLD",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "딥스택이라고 해서 ‘작은 페어로 무조건 샌드위치 스팟을 봐야 하는’ 건 아닙니다.",
+        "UTG 오픈 + HJ 셔브는 상위 레인지 충돌 가능성이 높고, 33은 그 레인지에 대해 에퀴티가 낮으며, UTG가 다시 셔브하면 거의 항상 폴드해야 하는 구조가 됩니다(리얼라이즈가 나쁨).",
+        "익스플로잇: 필드에서 이런 라인은 블러프 비중이 낮은 편이라, 폴드가 가장 안정적인 선택입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

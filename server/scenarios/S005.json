@@ -1,0 +1,94 @@
+{
+  "id": "S005",
+  "title": "턴 레이즈 세미블러프 → 리버 폴라 블러프 (블로커/폴드에퀴티)",
+  "tags": ["Postflop", "Turn", "River", "Overbet", "Bluff"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 110 },
+      { "seat": 2, "pos": "UTG1", "stack": 110 },
+      { "seat": 3, "pos": "UTG2", "stack": 110 },
+      { "seat": 4, "pos": "LJ",   "stack": 110 },
+      { "seat": 5, "pos": "HJ",   "stack": 110 },
+      { "seat": 6, "pos": "CO",   "stack": 110 },
+      { "seat": 7, "pos": "BTN",  "stack": 115, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 110 },
+      { "seat": 9, "pos": "BB",   "stack": 95 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["9s", "2d", "6s", "8s"],
+    "pot": 10.0,
+    "heroHoleCards": ["Ks", "7h"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: 9s 2d 6s",
+      "BB CHECK",
+      "BTN CHECK",
+      "Turn: 8s",
+      "BB BET 4.5"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 4.5
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 8s. BB가 4.5BB 리드. BTN의 Ks7h(플러시 드로우). 어떻게 할까요?",
+      "legalActions": ["FOLD", "CALL", "RAISE"],
+      "raiseOptions": [12.0],
+      "correct": {
+        "action": "RAISE",
+        "sizeBB": 12.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "강한 플러시 드로우는 콜도 가능하지만, 턴 레이즈는 즉시 폴드에퀴티 + 리버 폴라 압박 플랜을 동시에 만듭니다.",
+        "Ks는 상대의 높은 스페이드 밸류(강한 플러시) 일부를 블록해 블러프 레이즈 후보로 좋습니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "BB CALL 12.0",
+        "DEAL_RIVER 3h",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 3h. BB 체크. BTN의 Ks7h는 미스. 여기서 어떻게 할까요?",
+      "legalActions": ["CHECK", "ALL_IN"],
+      "correct": {
+        "action": "ALL_IN",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴 레이즈 이후 리버는 ‘강한 밸류 또는 블러프’로 이미 폴라라이즈된 라인입니다.",
+        "리버 올인은 상대 원페어/약한 쇼다운 밸류를 최대 압박하는 선택입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

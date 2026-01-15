@@ -1,0 +1,55 @@
+{
+  "id": "S016",
+  "title": "80BB: UTG 오픈 + CO 3bet(AKs) 후 SB 4bet 셔브 + UTG 5bet 셔브",
+  "tags": ["Preflop", "Deep", "Multiway", "AKs", "AllIn"],
+  "difficulty": 9,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 80 },
+      { "seat": 2, "pos": "UTG1", "stack": 60 },
+      { "seat": 3, "pos": "UTG2", "stack": 55 },
+      { "seat": 4, "pos": "LJ",   "stack": 70 },
+      { "seat": 5, "pos": "HJ",   "stack": 75 },
+      { "seat": 6, "pos": "CO",   "stack": 80, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 90 },
+      { "seat": 8, "pos": "SB",   "stack": 90 },
+      { "seat": 9, "pos": "BB",   "stack": 100 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 1.5,
+    "heroHoleCards": ["As", "Ks"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG RAISE_TO 2.5",
+      "CO RAISE_TO 8.5",
+      "SB ALL_IN 80.0",
+      "UTG ALL_IN 80.0"
+    ],
+    "toActPos": "CO",
+    "currentBet": 80.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "UTG 오픈 후 CO 3bet(AKs). SB 4bet 셔브 + UTG 5bet 셔브. CO는 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "FOLD",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "AKs는 강하지만, ‘두 명이 동시에 올인’인 구조에서는 상대 레인지가 극도로 강해질 가능성이 큽니다(AA/KK/QQ, AK).",
+        "멀티웨이 올인에서는 AK의 에퀴티가 급격히 떨어지고, 특히 UTG까지 들어간 5bet 셔브는 블러프 비중이 매우 낮은 경우가 많아 익스플로잇 폴드가 가능합니다."
+      ],
+      "terminal": true
+    }
+  ]
+}
