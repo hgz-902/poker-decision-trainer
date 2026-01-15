@@ -12,3 +12,4 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 /package-lock.json
+client/tsconfig.tsbuildinfo
