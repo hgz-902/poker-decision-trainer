@@ -1,0 +1,57 @@
+{
+  "id": "S027",
+  "title": "10BB: 버튼 푸시/폴드 (ICM 아닌 칩EV 기준)",
+  "tags": ["Tournament", "Preflop", "10BB", "PushFold"],
+  "difficulty": 4,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 18 },
+      { "seat": 2, "pos": "UTG1", "stack": 12 },
+      { "seat": 3, "pos": "UTG2", "stack": 14 },
+      { "seat": 4, "pos": "LJ",   "stack": 11 },
+      { "seat": 5, "pos": "HJ",   "stack": 16 },
+      { "seat": 6, "pos": "CO",   "stack": 20 },
+      { "seat": 7, "pos": "BTN",  "stack": 10, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 22 },
+      { "seat": 9, "pos": "BB",   "stack": 25 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 1.5,
+    "heroHoleCards": ["Kc", "8c"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 1.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "10BB. BTN의 K8s. 올인 푸시할까요?",
+      "legalActions": ["FOLD", "ALL_IN"],
+      "correct": {
+        "action": "ALL_IN",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "10BB BTN은 푸시가 매우 넓어지는 구간입니다.",
+        "익스플로잇: 블라인드가 타이트하게 콜한다면 푸시는 더 +EV가 됩니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "id": "S029",
+  "title": "리버 블러프: 블로커가 있는 미스드 드로우로 큰 사이즈",
+  "tags": ["Postflop", "Turn", "River", "Bluff", "Blocker"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 90 },
+      { "seat": 2, "pos": "UTG1", "stack": 90 },
+      { "seat": 3, "pos": "UTG2", "stack": 90 },
+      { "seat": 4, "pos": "LJ",   "stack": 90 },
+      { "seat": 5, "pos": "HJ",   "stack": 90 },
+      { "seat": 6, "pos": "CO",   "stack": 90 },
+      { "seat": 7, "pos": "BTN",  "stack": 90, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 90 },
+      { "seat": 9, "pos": "BB",   "stack": 90 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Ah", "Kd", "7s", "3s"],
+    "pot": 11.5,
+    "heroHoleCards": ["Qs", "Jc"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "BB CALL 2.5",
+      "Flop: Ah Kd 7s",
+      "BB CHECK",
+      "BTN BET 2.0",
+      "BB CALL 2.0",
+      "Turn: 3s",
+      "BB CHECK"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 3s. BTN의 QsJc(스페이드 블로커). 2배럴을 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [8.5],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 8.5,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴 스페이드는 상대의 일부 Ax/Kx를 압박할 수 있고, Qs는 리버에서 블러프를 이어갈 블로커로 의미가 있습니다.",
+        "턴에서 압박을 시작해야 리버 큰 사이즈 블러프 내러티브가 성립합니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "BB CALL 8.5",
+        "DEAL_RIVER 2d",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 2d(미스). BB 체크. QsJc로 올인 블러프를 할까요?",
+      "legalActions": ["CHECK", "ALL_IN"],
+      "correct": {
+        "action": "ALL_IN",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "블로커(Qs)로 상대의 강한 스페이드 밸류 일부를 차단하며, 폴라 스토리를 완성합니다.",
+        "상대는 많은 원페어(Ax/Kx)로 블러프캐치 해야 하는데, 올인은 그 결정을 극단적으로 어렵게 만듭니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

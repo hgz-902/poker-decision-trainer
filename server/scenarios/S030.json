@@ -1,0 +1,94 @@
+{
+  "id": "S030",
+  "title": "턴 체크백으로 리버 유도: 상대 오버블러프 익스플로잇",
+  "tags": ["Postflop", "Turn", "River", "Induce", "Exploit"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 75 },
+      { "seat": 2, "pos": "UTG1", "stack": 75 },
+      { "seat": 3, "pos": "UTG2", "stack": 75 },
+      { "seat": 4, "pos": "LJ",   "stack": 75 },
+      { "seat": 5, "pos": "HJ",   "stack": 75 },
+      { "seat": 6, "pos": "CO",   "stack": 75, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 75 },
+      { "seat": 8, "pos": "SB",   "stack": 75 },
+      { "seat": 9, "pos": "BB",   "stack": 75 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Kc", "7d", "3c", "9h"],
+    "pot": 9.5,
+    "heroHoleCards": ["Ks", "Td"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN folds",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Kc 7d 3c",
+      "BB CHECK",
+      "CO BET 2.0",
+      "BB CALL 2.0",
+      "Turn: 9h",
+      "BB CHECK"
+    ],
+    "toActPos": "CO",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 9h. CO의 KT(탑페어). 상대가 오버블러프 성향이라면 턴에서 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [6.0],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "익스플로잇: 오버블러프 상대에게는 턴 체크백으로 리버 블러프를 유도하는 라인이 수익적일 수 있습니다.",
+        "GTO적으로도 일부 탑페어는 체크백 라인을 가져 밸런스를 맞춥니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "CO CHECK",
+        "DEAL_RIVER 2s",
+        "BB ALL_IN 71.0"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 2s. BB가 오버잼 올인. CO의 KT로 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴 체크백으로 유도한 라인에서, 상대가 과블러프한다면 탑페어는 블러프캐처로 콜 빈도를 가져야 합니다.",
+        "심리 함정: 큰 사이즈에 겁먹어 과폴드하면, 상대 오버블러프가 자동으로 수익이 됩니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

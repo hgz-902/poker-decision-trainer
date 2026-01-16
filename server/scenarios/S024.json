@@ -1,0 +1,95 @@
+{
+  "id": "S024",
+  "title": "턴에서 밸류 베팅 vs 체크백: 캡된 레인지 공격 (GTO+익스플로잇)",
+  "tags": ["Postflop", "Turn", "Value", "CapAttack", "Range"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 80 },
+      { "seat": 2, "pos": "UTG1", "stack": 80 },
+      { "seat": 3, "pos": "UTG2", "stack": 80 },
+      { "seat": 4, "pos": "LJ",   "stack": 80 },
+      { "seat": 5, "pos": "HJ",   "stack": 80 },
+      { "seat": 6, "pos": "CO",   "stack": 80 },
+      { "seat": 7, "pos": "BTN",  "stack": 80, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 80 },
+      { "seat": 9, "pos": "BB",   "stack": 80 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Ah", "Td", "4s", "6c"],
+    "pot": 9.5,
+    "heroHoleCards": ["Ac", "9c"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "BB CALL 2.5",
+      "Flop: Ah Td 4s",
+      "BB CHECK",
+      "BTN BET 2.0",
+      "BB CALL 2.0",
+      "Turn: 6c",
+      "BB CHECK"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 6c. BTN의 A9(탑페어 약킥). BB 체크. 턴에서 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [6.0],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 6.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "BB의 체크-콜 레인지는 Ax/Tx/드로우가 섞이지만, 많은 필드는 턴에서 오버폴드/오버콜로 치우칩니다.",
+        "익스플로잇: 약한 Ax에게서 밸류를 뽑고, 드로우에 가격을 부과하는 베팅이 수익적일 수 있습니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "BB CALL 6.0",
+        "DEAL_RIVER Th",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 Th로 보드가 페어. BB 체크. A9로 얇은 밸류?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [6.5],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "리버 페어 카드는 상대의 Tx/AT 같은 레인지를 강화하고, 얇은 밸류의 콜 구조를 나쁘게 만듭니다.",
+        "턴에서 이미 밸류를 확보했다면 리버는 체크백이 표준."
+      ],
+      "terminal": true
+    }
+  ]
+}

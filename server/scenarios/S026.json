@@ -1,0 +1,96 @@
+{
+  "id": "S026",
+  "title": "리버 얇은 밸류(익스플로잇): 상대가 너무 많이 콜할 때",
+  "tags": ["Postflop", "Turn", "River", "ThinValue", "Exploit"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 70 },
+      { "seat": 2, "pos": "UTG1", "stack": 70 },
+      { "seat": 3, "pos": "UTG2", "stack": 70 },
+      { "seat": 4, "pos": "LJ",   "stack": 70 },
+      { "seat": 5, "pos": "HJ",   "stack": 70 },
+      { "seat": 6, "pos": "CO",   "stack": 70, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 70 },
+      { "seat": 8, "pos": "SB",   "stack": 70 },
+      { "seat": 9, "pos": "BB",   "stack": 70 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["As", "8d", "4c", "2h"],
+    "pot": 9.5,
+    "heroHoleCards": ["Ad", "7c"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN folds",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: As 8d 4c",
+      "BB CHECK",
+      "CO BET 2.0",
+      "BB CALL 2.0",
+      "Turn: 2h",
+      "BB CHECK"
+    ],
+    "toActPos": "CO",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 2h. CO의 A7(탑페어 약킥). BB 체크. 턴 베팅?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [6.0],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 6.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "익스플로잇 설정: 상대가 약한 Ax/8x를 너무 많이 콜하는 타입이면, 턴에서 밸류를 더 뽑는 것이 수익적입니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "BB CALL 6.0",
+        "DEAL_RIVER 6d",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 6d. BB 체크. CO의 A7로 얇은 밸류를 계속할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [7.5],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 7.5,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "익스플로잇: 콜링스테이션에게는 ‘체크백’이 아니라 ‘얇은 밸류를 계속’이 장기적으로 수익적일 수 있습니다.",
+        "GTO보다 실전 필드에서 더 높은 빈도로 밸류 베팅을 섞는 훈련입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

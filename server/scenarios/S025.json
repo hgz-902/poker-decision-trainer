@@ -1,0 +1,94 @@
+{
+  "id": "S025",
+  "title": "3bet 팟 IP: 플랍 소액 → 턴 큰 배럴 (폴라 압박)",
+  "tags": ["Postflop", "Flop", "Turn", "3betPot", "Polar"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 85 },
+      { "seat": 2, "pos": "UTG1", "stack": 85 },
+      { "seat": 3, "pos": "UTG2", "stack": 85 },
+      { "seat": 4, "pos": "LJ",   "stack": 85 },
+      { "seat": 5, "pos": "HJ",   "stack": 85 },
+      { "seat": 6, "pos": "CO",   "stack": 85, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 85 },
+      { "seat": 8, "pos": "SB",   "stack": 85 },
+      { "seat": 9, "pos": "BB",   "stack": 85 }
+    ]
+  },
+  "initialState": {
+    "street": "FLOP",
+    "board": ["Kc", "5c", "2d"],
+    "pot": 16.0,
+    "heroHoleCards": ["Ac", "Qd"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.3",
+      "BTN folds",
+      "SB folds",
+      "BB RAISE_TO 7.5",
+      "CO CALL 7.5",
+      "Flop: Kc 5c 2d",
+      "BB CHECK"
+    ],
+    "toActPos": "CO",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "FLOP",
+      "prompt": "3bet 팟. Kc5c2d. CO의 AcQd(백도어+A블로커). 소액 c-bet?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [4.0],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 4.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "3bet 팟에서 K-high 보드는 소액 c-bet이 빈번한 구성입니다.",
+        "Ac 블로커는 상대의 강한 클럽 콤보 일부를 줄이고, 블러프 후보로 가치가 있습니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "FLOP",
+      "scriptActions": [
+        "BB CALL 4.0",
+        "DEAL_TURN 9c",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 9c로 플러시 카드 완성. BB 체크. CO의 AcQd로 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [14.0],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 14.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴에 3번째 클럽이 떨어지면 상대의 원페어/Kx는 압박을 크게 받습니다.",
+        "Ac는 ‘넛 플러시를 대표’하는 최고의 블로커라, 큰 배럴(폴라)이 특히 적합합니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

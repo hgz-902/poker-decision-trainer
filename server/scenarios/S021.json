@@ -1,0 +1,61 @@
+{
+  "id": "S021",
+  "title": "25BB: 버튼 오픈 → BB 3bet에 4bet 셔브(폴드에퀴티) vs 콜",
+  "tags": ["Tournament", "Preflop", "25BB", "4betShove", "FoldEquity"],
+  "difficulty": 5,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 30 },
+      { "seat": 2, "pos": "UTG1", "stack": 28 },
+      { "seat": 3, "pos": "UTG2", "stack": 26 },
+      { "seat": 4, "pos": "LJ",   "stack": 24 },
+      { "seat": 5, "pos": "HJ",   "stack": 22 },
+      { "seat": 6, "pos": "CO",   "stack": 35 },
+      { "seat": 7, "pos": "BTN",  "stack": 25, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 18 },
+      { "seat": 9, "pos": "BB",   "stack": 25 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 1.5,
+    "heroHoleCards": ["As", "5s"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.2",
+      "SB folds",
+      "BB RAISE_TO 7.0"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 7.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "25BB. BTN 오픈 후 BB 3bet 7BB. BTN의 A5s로 어떻게 할까요?",
+      "legalActions": ["FOLD", "CALL", "ALL_IN"],
+      "correct": {
+        "action": "ALL_IN",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "A5s는 블로커(A) + 수딧 에퀴티로 25BB 구간 4bet 셔브 후보가 됩니다.",
+        "콜은 포지션은 좋지만 SPR이 애매해지고, 상대 3bet 레인지에 도미네이트 위험이 남습니다.",
+        "수학 포인트: 4bet 셔브는 폴드에퀴티 + 콜받았을 때의 에퀴티가 합쳐져 EV가 형성됩니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

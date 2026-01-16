@@ -1,0 +1,92 @@
+{
+  "id": "S028",
+  "title": "플랍에서 팟 빌딩: 너트/강드로우로 강하게 (체크-레이즈)",
+  "tags": ["Postflop", "Flop", "CheckRaise", "PotBuild"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 70 },
+      { "seat": 2, "pos": "UTG1", "stack": 70 },
+      { "seat": 3, "pos": "UTG2", "stack": 70 },
+      { "seat": 4, "pos": "LJ",   "stack": 70 },
+      { "seat": 5, "pos": "HJ",   "stack": 70, "isUser": true },
+      { "seat": 6, "pos": "CO",   "stack": 70 },
+      { "seat": 7, "pos": "BTN",  "stack": 70 },
+      { "seat": 8, "pos": "SB",   "stack": 70 },
+      { "seat": 9, "pos": "BB",   "stack": 70 }
+    ]
+  },
+  "initialState": {
+    "street": "FLOP",
+    "board": ["9h", "8h", "2c"],
+    "pot": 6.5,
+    "heroHoleCards": ["Th", "Jh"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ RAISE_TO 2.5",
+      "CO folds",
+      "BTN folds",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: 9h 8h 2c",
+      "BB CHECK",
+      "HJ BET 2.0"
+    ],
+    "toActPos": "BB",
+    "currentBet": 2.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "FLOP",
+      "prompt": "BB의 ThJh(오픈엔디드+플러시드로우). HJ가 2.0BB 베팅. 어떻게 할까요?",
+      "legalActions": ["FOLD", "CALL", "RAISE"],
+      "raiseOptions": [8.0],
+      "correct": {
+        "action": "RAISE",
+        "sizeBB": 8.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "강드로우는 체크-레이즈로 팟을 키우며 폴드에퀴티를 추가하는 것이 고수익 라인입니다.",
+        "‘팟컨트롤’보다 ‘팟 빌딩’이 우선인 보드/핸드 구조를 훈련합니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "FLOP",
+      "scriptActions": [
+        "HJ CALL 8.0",
+        "DEAL_TURN 3d",
+        "BB ALL_IN 60.0"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 3d. BB가 올인. HJ는 콜할까요?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "체크-레이즈 콜을 받아 팟이 커진 뒤, 강드로우의 올인은 에퀴티+폴드에퀴티를 극대화합니다.",
+        "턴 올인은 리버에서 어려운 결정을 줄이고, 상대의 중간 밸류를 압박합니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

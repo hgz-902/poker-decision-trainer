@@ -1,0 +1,92 @@
+{
+  "id": "S022",
+  "title": "플랍 체크레이즈 블러프: BB vs BTN, 드라이 보드에서 빈도",
+  "tags": ["Postflop", "Flop", "CheckRaise", "Bluff", "Frequency"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 75 },
+      { "seat": 2, "pos": "UTG1", "stack": 75 },
+      { "seat": 3, "pos": "UTG2", "stack": 75 },
+      { "seat": 4, "pos": "LJ",   "stack": 75 },
+      { "seat": 5, "pos": "HJ",   "stack": 75 },
+      { "seat": 6, "pos": "CO",   "stack": 75 },
+      { "seat": 7, "pos": "BTN",  "stack": 75 },
+      { "seat": 8, "pos": "SB",   "stack": 75 },
+      { "seat": 9, "pos": "BB",   "stack": 75, "isUser": true }
+    ]
+  },
+  "initialState": {
+    "street": "FLOP",
+    "board": ["Kd", "7c", "2s"],
+    "pot": 5.5,
+    "heroHoleCards": ["Qd", "8d"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Kd 7c 2s",
+      "BB CHECK",
+      "BTN BET 1.8"
+    ],
+    "toActPos": "BB",
+    "currentBet": 1.8
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "FLOP",
+      "prompt": "K72r에서 BTN이 1.8 소액 c-bet. BB의 Q8(백도어 약함). 체크-레이즈 블러프 할까요?",
+      "legalActions": ["FOLD", "CALL", "RAISE"],
+      "raiseOptions": [6.5],
+      "correct": {
+        "action": "RAISE",
+        "sizeBB": 6.5,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "드라이 보드에서 소액 c-bet은 빈도가 높아, BB는 일부를 체크-레이즈로 대응해 빈도 밸런스를 맞출 수 있습니다.",
+        "익스플로잇: 상대가 ‘소액 베팅 후 폴드가 많다’면 체크-레이즈 블러프 EV가 급상승합니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "FLOP",
+      "scriptActions": [
+        "BTN CALL 6.5",
+        "DEAL_TURN 4h",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 4h. BB는 블러프를 계속할까요?",
+      "legalActions": ["CHECK", "ALL_IN"],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "체크-레이즈를 콜받은 뒤 턴 블랭크에서 무작정 올인은 과블러프가 되기 쉽습니다.",
+        "GTO적으로도 플랍 XR 블러프의 상당수는 턴에서 체크로 멈춰야 밸런스가 맞습니다."
+      ],
+      "terminal": true
+    }
+  ]
+}
