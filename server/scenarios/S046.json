@@ -1,0 +1,66 @@
+{
+  "id": "S046",
+  "title": "4bet 팟 저SPR: 플랍에서 올인 vs 소액 (밸류 극대화)",
+  "tags": ["Postflop", "Flop", "4betPot", "LowSPR", "Value"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 60 },
+      { "seat": 2, "pos": "UTG1", "stack": 60 },
+      { "seat": 3, "pos": "UTG2", "stack": 60 },
+      { "seat": 4, "pos": "LJ",   "stack": 60 },
+      { "seat": 5, "pos": "HJ",   "stack": 60 },
+      { "seat": 6, "pos": "CO",   "stack": 60, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 60 },
+      { "seat": 8, "pos": "SB",   "stack": 60 },
+      { "seat": 9, "pos": "BB",   "stack": 60 }
+    ]
+  },
+  "initialState": {
+    "street": "FLOP",
+    "board": ["Td", "7c", "2s"],
+    "pot": 27.0,
+    "heroHoleCards": ["Ah", "Ad"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN RAISE_TO 8.5",
+      "SB folds",
+      "BB folds",
+      "CO RAISE_TO 21.0",
+      "BTN CALL 21.0",
+      "Flop: Td 7c 2s",
+      "BTN CHECK"
+    ],
+    "toActPos": "CO",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "FLOP",
+      "prompt": "4bet 팟, 저SPR. CO의 AA. 플랍에서 어떻게 할까요?",
+      "legalActions": ["BET", "ALL_IN"],
+      "raiseOptions": [8.0],
+      "correct": {
+        "action": "ALL_IN",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "저SPR 4bet 팟은 ‘한 번에 스택 넣기’가 자연스러운 구조가 많습니다.",
+        "익스플로잇: 상대가 오버페어/Tx로 잘 콜하는 필드면 올인이 밸류를 극대화합니다.",
+        "GTO적으로도 AA는 이런 구조에서 강하게 밀어붙이는 빈도가 높습니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "id": "S044",
+  "title": "리버 얇은 밸류(익스플로잇): 상대가 과콜하는 필드",
+  "tags": ["Postflop", "River", "ThinValue", "Exploit", "Sizing"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 80 },
+      { "seat": 2, "pos": "UTG1", "stack": 80 },
+      { "seat": 3, "pos": "UTG2", "stack": 80 },
+      { "seat": 4, "pos": "LJ",   "stack": 80 },
+      { "seat": 5, "pos": "HJ",   "stack": 80 },
+      { "seat": 6, "pos": "CO",   "stack": 80, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 80 },
+      { "seat": 8, "pos": "SB",   "stack": 80 },
+      { "seat": 9, "pos": "BB",   "stack": 80 }
+    ]
+  },
+  "initialState": {
+    "street": "RIVER",
+    "board": ["Kh", "9d", "5c", "5s", "2h"],
+    "pot": 18.5,
+    "heroHoleCards": ["Kc", "Jd"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN folds",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Kh 9d 5c",
+      "BB CHECK",
+      "CO BET 2.0",
+      "BB CALL 2.0",
+      "Turn: 5s",
+      "BB CHECK",
+      "CO CHECK",
+      "River: 2h",
+      "BB CHECK"
+    ],
+    "toActPos": "CO",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버에서 BB 체크. CO의 KJ(탑페어). 과콜 필드라고 가정할 때, 얇은 밸류 베팅?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [4.0],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 4.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "GTO에선 체크가 섞이지만, 실전 과콜 상대에게는 작은 사이즈 얇은 밸류가 수익적으로 기울기 쉽습니다.",
+        "사이즈를 작게 하면, 9x/포켓페어 같은 더 약한 핸드의 콜을 더 많이 유도할 수 있습니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

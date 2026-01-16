@@ -1,0 +1,66 @@
+{
+  "id": "S040",
+  "title": "리버에서 블러프를 멈추는 규율: 스토리/블로커가 부족할 때",
+  "tags": ["Postflop", "Turn", "River", "Bluff", "Discipline"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 85 },
+      { "seat": 2, "pos": "UTG1", "stack": 85 },
+      { "seat": 3, "pos": "UTG2", "stack": 85 },
+      { "seat": 4, "pos": "LJ",   "stack": 85 },
+      { "seat": 5, "pos": "HJ",   "stack": 85 },
+      { "seat": 6, "pos": "CO",   "stack": 85 },
+      { "seat": 7, "pos": "BTN",  "stack": 85, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 85 },
+      { "seat": 9, "pos": "BB",   "stack": 85 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Kc", "9d", "4s", "2h"],
+    "pot": 11.5,
+    "heroHoleCards": ["Qd", "Jd"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "BB CALL 2.5",
+      "Flop: Kc 9d 4s",
+      "BB CHECK",
+      "BTN BET 2.0",
+      "BB CALL 2.0",
+      "Turn: 2h",
+      "BB CHECK"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 2h. BTN의 QJ(미스). 2배럴을 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [8.5],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴 블랭크에서 무작정 배럴은 ‘블로커/런아웃/스토리’가 부족하면 과블러프가 되기 쉽습니다.",
+        "여기서는 체크로 포기하는 규율을 훈련합니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

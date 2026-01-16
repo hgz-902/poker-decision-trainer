@@ -1,0 +1,66 @@
+{
+  "id": "S048",
+  "title": "턴 프로브(익스플로잇): IP가 플랍 체크백했을 때 공격하기",
+  "tags": ["Postflop", "Turn", "Probe", "Exploit", "CapAttack"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 75 },
+      { "seat": 2, "pos": "UTG1", "stack": 75 },
+      { "seat": 3, "pos": "UTG2", "stack": 75 },
+      { "seat": 4, "pos": "LJ",   "stack": 75 },
+      { "seat": 5, "pos": "HJ",   "stack": 75 },
+      { "seat": 6, "pos": "CO",   "stack": 75 },
+      { "seat": 7, "pos": "BTN",  "stack": 75 },
+      { "seat": 8, "pos": "SB",   "stack": 75 },
+      { "seat": 9, "pos": "BB",   "stack": 75, "isUser": true }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Qh", "7c", "2d", "4s"],
+    "pot": 5.5,
+    "heroHoleCards": ["Jh", "Th"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Qh 7c 2d",
+      "BB CHECK",
+      "BTN CHECK",
+      "Turn: 4s"
+    ],
+    "toActPos": "BB",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "BTN이 플랍 체크백. 턴 4s에서 BB의 JT(백도어). 프로브 베팅할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [3.8],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 3.8,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "플랍 체크백은 IP 레인지가 캡(강한 Qx/오버페어 비중 감소)되는 경우가 많습니다.",
+        "익스플로잇: 이런 캡을 턴 프로브로 공격하면 즉시 폴드에퀴티를 얻기 좋습니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "S045",
+  "title": "80BB: UTG 오픈 → CO AKs 3bet → SB 4bet 셔브 → UTG 5bet 셔브 (콜/폴드)",
+  "tags": ["Tournament", "Preflop", "80BB", "5betShove", "MultiwayAllIn"],
+  "difficulty": 8,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 80 },
+      { "seat": 2, "pos": "UTG1", "stack": 60 },
+      { "seat": 3, "pos": "UTG2", "stack": 55 },
+      { "seat": 4, "pos": "LJ",   "stack": 70 },
+      { "seat": 5, "pos": "HJ",   "stack": 65 },
+      { "seat": 6, "pos": "CO",   "stack": 80, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 75 },
+      { "seat": 8, "pos": "SB",   "stack": 80 },
+      { "seat": 9, "pos": "BB",   "stack": 90 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 1.5,
+    "heroHoleCards": ["As", "Ks"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG RAISE_TO 2.5",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 8.0",
+      "BTN folds",
+      "SB ALL_IN 80.0",
+      "BB folds",
+      "UTG ALL_IN 80.0"
+    ],
+    "toActPos": "CO",
+    "currentBet": 80.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "UTG 5bet 셔브까지 나온 상황. CO의 AKs로 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "포트가 이미 매우 커져 팟오즈가 좋아집니다. 콜에 필요한 최소 에퀴티가 크게 낮아집니다.",
+        "AKs는 최상위 프리미엄으로, 다자 올인에서도 충분한 에퀴티/블로커(A,K)를 가집니다.",
+        "심리 함정: ‘둘이 올인이면 무조건 AA/KK’라는 공포. 실제론 SB의 루즈 셔브가 섞일 때 콜 EV가 좋아지기 쉽습니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

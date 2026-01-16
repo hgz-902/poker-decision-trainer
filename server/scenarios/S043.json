@@ -1,0 +1,94 @@
+{
+  "id": "S043",
+  "title": "턴 블로커 블러프: 4-flush 보드에서 큰 배럴 (넛 차단)",
+  "tags": ["Postflop", "Turn", "Blocker", "Polar", "Exploit"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 100 },
+      { "seat": 2, "pos": "UTG1", "stack": 100 },
+      { "seat": 3, "pos": "UTG2", "stack": 100 },
+      { "seat": 4, "pos": "LJ",   "stack": 100 },
+      { "seat": 5, "pos": "HJ",   "stack": 100 },
+      { "seat": 6, "pos": "CO",   "stack": 100 },
+      { "seat": 7, "pos": "BTN",  "stack": 100, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 100 },
+      { "seat": 9, "pos": "BB",   "stack": 100 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Js", "7s", "2d", "9s"],
+    "pot": 11.5,
+    "heroHoleCards": ["As", "Qd"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "BB CALL 2.5",
+      "Flop: Js 7s 2d",
+      "BB CHECK",
+      "BTN BET 2.0",
+      "BB CALL 2.0",
+      "Turn: 9s",
+      "BB CHECK"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 9s로 3스페이드. BTN의 AsQd(넛 스페이드 블로커). 큰 배럴을 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [9.5],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 9.5,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "As는 상대의 넛 플러시(AsXs)를 차단해 큰 블러프 배럴에 최적의 블로커입니다.",
+        "익스플로잇: 많은 필드가 3번째 플러시 카드에 원페어를 과하게 폴드하므로 EV가 커집니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "BB CALL 9.5",
+        "DEAL_RIVER 2c",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 2c(보드 페어). BB 체크. AsQd로 블러프를 계속할까요?",
+      "legalActions": ["CHECK", "ALL_IN"],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "리버 보드 페어는 상대가 플러시를 들었을 때도 풀하우스/트립스 리스크가 생겨 콜 성향이 바뀝니다.",
+        "이 런아웃에서는 ‘턴 큰 배럴’까지만 수익적이고, 리버는 과블러프가 되기 쉬워 체크가 표준."
+      ],
+      "terminal": true
+    }
+  ]
+}

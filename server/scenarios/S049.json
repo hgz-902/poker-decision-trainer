@@ -1,0 +1,95 @@
+{
+  "id": "S049",
+  "title": "리버 오버벳 블러프: 블로커가 있을 때만 (유명 프로 리뷰 단골 유형)",
+  "tags": ["Postflop", "Turn", "River", "Overbet", "Blocker", "Bluff"],
+  "difficulty": 8,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 95 },
+      { "seat": 2, "pos": "UTG1", "stack": 95 },
+      { "seat": 3, "pos": "UTG2", "stack": 95 },
+      { "seat": 4, "pos": "LJ",   "stack": 95 },
+      { "seat": 5, "pos": "HJ",   "stack": 95 },
+      { "seat": 6, "pos": "CO",   "stack": 95, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 95 },
+      { "seat": 8, "pos": "SB",   "stack": 95 },
+      { "seat": 9, "pos": "BB",   "stack": 95 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Ad", "Qc", "7d", "2d"],
+    "pot": 11.5,
+    "heroHoleCards": ["Kd", "Jc"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN folds",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Ad Qc 7d",
+      "BB CHECK",
+      "CO BET 2.0",
+      "BB CALL 2.0",
+      "Turn: 2d",
+      "BB CHECK"
+    ],
+    "toActPos": "CO",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 2d(백도어 플러시 완성 가능). CO의 KdJc(다이아 블로커). 2배럴?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [8.5],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 8.5,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "Kd는 리버 다이아 런아웃에서 강한 밸류(넛 플러시)를 대표하는 블로커 역할을 합니다.",
+        "턴 배럴이 있어야 리버 오버벳 블러프 ‘스토리’가 성립합니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "BB CALL 8.5",
+        "DEAL_RIVER 9h",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 9h(미스). BB 체크. KdJc로 오버벳 올인 블러프를 할까요?",
+      "legalActions": ["CHECK", "ALL_IN"],
+      "correct": {
+        "action": "ALL_IN",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "블로커(Kd) + 폴라 스토리(강한 다이아 밸류 vs 블러프)로 리버 오버벳이 성립합니다.",
+        "익스플로잇: 많은 필드가 이런 라인에 과폴드하는 경향이 있어 EV가 커질 수 있습니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

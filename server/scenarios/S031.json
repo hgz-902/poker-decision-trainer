@@ -1,0 +1,57 @@
+{
+  "id": "S031",
+  "title": "15BB: CO 오픈 vs 올인 (오픈-폴드 비용 vs 푸시 EV)",
+  "tags": ["Tournament", "Preflop", "15BB", "OpenVsJam", "EV"],
+  "difficulty": 4,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 22 },
+      { "seat": 2, "pos": "UTG1", "stack": 18 },
+      { "seat": 3, "pos": "UTG2", "stack": 16 },
+      { "seat": 4, "pos": "LJ",   "stack": 20 },
+      { "seat": 5, "pos": "HJ",   "stack": 24 },
+      { "seat": 6, "pos": "CO",   "stack": 15, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 28 },
+      { "seat": 8, "pos": "SB",   "stack": 26 },
+      { "seat": 9, "pos": "BB",   "stack": 30 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 1.5,
+    "heroHoleCards": ["As", "9s"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds"
+    ],
+    "toActPos": "CO",
+    "currentBet": 1.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "15BB. CO에서 A9s. 오픈(2.2) vs 올인(15) 중 무엇이 더 좋을까요?",
+      "legalActions": ["FOLD", "RAISE", "ALL_IN"],
+      "raiseOptions": [2.2],
+      "correct": {
+        "action": "ALL_IN",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "15BB 구간은 ‘오픈-폴드 비용’이 커지고, 3bet 셔브를 자주 맞기 때문에 일부 수딧 A는 직접 푸시가 효율적입니다.",
+        "수학 포인트: 푸시는 (폴드에퀴티) + (콜받았을 때의 에퀴티) 합으로 EV가 형성됩니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

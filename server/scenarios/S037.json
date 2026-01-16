@@ -1,0 +1,66 @@
+{
+  "id": "S037",
+  "title": "턴에서 블러프캐치: 오버베팅 vs 균형 콜 빈도",
+  "tags": ["Postflop", "Turn", "BluffCatch", "Overbet", "Frequency"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 85 },
+      { "seat": 2, "pos": "UTG1", "stack": 85 },
+      { "seat": 3, "pos": "UTG2", "stack": 85 },
+      { "seat": 4, "pos": "LJ",   "stack": 85 },
+      { "seat": 5, "pos": "HJ",   "stack": 85 },
+      { "seat": 6, "pos": "CO",   "stack": 85, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 85 },
+      { "seat": 8, "pos": "SB",   "stack": 85 },
+      { "seat": 9, "pos": "BB",   "stack": 85 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Qd", "8s", "4c", "2d"],
+    "pot": 11.5,
+    "heroHoleCards": ["Qh", "Jc"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN CALL 2.5",
+      "SB folds",
+      "BB folds",
+      "Flop: Qd 8s 4c",
+      "CO BET 2.0",
+      "BTN CALL 2.0",
+      "Turn: 2d",
+      "CO CHECK",
+      "BTN BET 14.0"
+    ],
+    "toActPos": "CO",
+    "currentBet": 14.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 2d. BTN이 14BB 오버베팅. CO의 QJ(탑페어). 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "오버베팅은 블러프와 강한 밸류가 섞인 폴라 라인일 수 있어, 탑페어는 일정 빈도로 콜해야 합니다.",
+        "과폴드하면 상대 오버베팅 블러프가 자동 수익이 됩니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

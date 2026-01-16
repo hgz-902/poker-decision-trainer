@@ -1,0 +1,94 @@
+{
+  "id": "S034",
+  "title": "턴에서 체크백으로 쇼다운 확보 (블러프 빈도 조절)",
+  "tags": ["Postflop", "Turn", "PotControl", "Showdown"],
+  "difficulty": 5,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 80 },
+      { "seat": 2, "pos": "UTG1", "stack": 80 },
+      { "seat": 3, "pos": "UTG2", "stack": 80 },
+      { "seat": 4, "pos": "LJ",   "stack": 80 },
+      { "seat": 5, "pos": "HJ",   "stack": 80, "isUser": true },
+      { "seat": 6, "pos": "CO",   "stack": 80 },
+      { "seat": 7, "pos": "BTN",  "stack": 80 },
+      { "seat": 8, "pos": "SB",   "stack": 80 },
+      { "seat": 9, "pos": "BB",   "stack": 80 }
+    ]
+  },
+  "initialState": {
+    "street": "TURN",
+    "board": ["Jc", "7d", "2s", "4c"],
+    "pot": 9.5,
+    "heroHoleCards": ["Jd", "9d"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ RAISE_TO 2.5",
+      "CO folds",
+      "BTN folds",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Jc 7d 2s",
+      "BB CHECK",
+      "HJ BET 2.0",
+      "BB CALL 2.0",
+      "Turn: 4c",
+      "BB CHECK"
+    ],
+    "toActPos": "HJ",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 4c. HJ의 J9(탑페어 약킥). 턴에서 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [6.0],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴에서 무리한 얇은 밸류는 강한 레인지에 계속 콜당해 EV가 불안정해질 수 있습니다.",
+        "체크백은 쇼다운 EV를 확보하며 리버를 더 쉽게 만듭니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "TURN",
+      "scriptActions": [
+        "HJ CHECK",
+        "DEAL_RIVER 6h",
+        "BB BET 4.5"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버 6h. BB가 4.5BB 베팅. J9로 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴 체크백 라인에서는 리버에서 상대가 블러프를 섞을 수 있어, 탑페어는 일정 빈도로 콜해야 합니다.",
+        "팟오즈와 상대 블러프 빈도를 결합해 결정하는 훈련입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "S032",
+  "title": "20BB: BTN 오픈 후 SB 3bet 셔브 콜/폴드 (팟오즈)",
+  "tags": ["Tournament", "Preflop", "20BB", "VsShove", "PotOdds"],
+  "difficulty": 5,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 28 },
+      { "seat": 2, "pos": "UTG1", "stack": 22 },
+      { "seat": 3, "pos": "UTG2", "stack": 18 },
+      { "seat": 4, "pos": "LJ",   "stack": 25 },
+      { "seat": 5, "pos": "HJ",   "stack": 26 },
+      { "seat": 6, "pos": "CO",   "stack": 30 },
+      { "seat": 7, "pos": "BTN",  "stack": 20, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 18 },
+      { "seat": 9, "pos": "BB",   "stack": 35 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 1.5,
+    "heroHoleCards": ["Kc", "Qd"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.2",
+      "SB ALL_IN 18.0"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 18.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "BTN 오픈 후 SB가 18BB 셔브. BTN의 KQo로 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "BTN 오픈 vs SB 셔브는 SB의 레인지가 넓게 나오는 경우가 많습니다.",
+        "팟오즈로 필요한 최소 에퀴티가 낮아지는 구조라 KQo는 콜 후보가 됩니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "id": "S047",
+  "title": "리버 히어로콜: 폴라 올인 vs 블러프 비중 판단 (팟오즈)",
+  "tags": ["Postflop", "River", "HeroCall", "PotOdds", "Polar"],
+  "difficulty": 8,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 95 },
+      { "seat": 2, "pos": "UTG1", "stack": 95 },
+      { "seat": 3, "pos": "UTG2", "stack": 95 },
+      { "seat": 4, "pos": "LJ",   "stack": 95 },
+      { "seat": 5, "pos": "HJ",   "stack": 95, "isUser": true },
+      { "seat": 6, "pos": "CO",   "stack": 95 },
+      { "seat": 7, "pos": "BTN",  "stack": 95 },
+      { "seat": 8, "pos": "SB",   "stack": 95 },
+      { "seat": 9, "pos": "BB",   "stack": 95 }
+    ]
+  },
+  "initialState": {
+    "street": "RIVER",
+    "board": ["Kc", "9h", "4d", "4s", "2c"],
+    "pot": 30.5,
+    "heroHoleCards": ["Kds", "??"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ RAISE_TO 2.5",
+      "CO CALL 2.5",
+      "BTN folds",
+      "SB folds",
+      "BB folds",
+      "Flop: Kc 9h 4d",
+      "HJ BET 2.0",
+      "CO CALL 2.0",
+      "Turn: 4s",
+      "HJ CHECK",
+      "CO BET 6.0",
+      "HJ CALL 6.0",
+      "River: 2c",
+      "HJ CHECK",
+      "CO ALL_IN 84.0"
+    ],
+    "toActPos": "HJ",
+    "currentBet": 84.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버에서 CO가 오버잼 올인. HJ의 KQ(탑페어)로 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "이 라인의 올인은 매우 폴라(4x/풀하우스 vs 블러프)일 가능성이 큽니다.",
+        "팟오즈 관점에서 ‘상대 블러프가 일정 비율 이상’이면 콜이 +EV가 됩니다.",
+        "익스플로잇: 상대가 오버블러프 성향(리버 과배팅/과잼)이라면 탑페어로도 콜 빈도를 올려야 합니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

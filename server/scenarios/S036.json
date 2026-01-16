@@ -1,0 +1,91 @@
+{
+  "id": "S036",
+  "title": "플랍 체크-레이즈 밸류: 셋으로 팟 빌딩 (SB vs BTN)",
+  "tags": ["Postflop", "Flop", "Turn", "CheckRaise", "Value", "PotBuild"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 90 },
+      { "seat": 2, "pos": "UTG1", "stack": 90 },
+      { "seat": 3, "pos": "UTG2", "stack": 90 },
+      { "seat": 4, "pos": "LJ",   "stack": 90 },
+      { "seat": 5, "pos": "HJ",   "stack": 90 },
+      { "seat": 6, "pos": "CO",   "stack": 90 },
+      { "seat": 7, "pos": "BTN",  "stack": 90 },
+      { "seat": 8, "pos": "SB",   "stack": 90, "isUser": true },
+      { "seat": 9, "pos": "BB",   "stack": 90 }
+    ]
+  },
+  "initialState": {
+    "street": "FLOP",
+    "board": ["9c", "6d", "2s"],
+    "pot": 6.5,
+    "heroHoleCards": ["6c", "6h"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "SB CALL 2.5",
+      "BB folds",
+      "Flop: 9c 6d 2s",
+      "SB CHECK",
+      "BTN BET 2.0"
+    ],
+    "toActPos": "SB",
+    "currentBet": 2.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "FLOP",
+      "prompt": "플랍 962r. SB의 66(셋). BTN이 2.0 베팅. 어떻게 할까요?",
+      "legalActions": ["CALL", "RAISE"],
+      "raiseOptions": [7.5],
+      "correct": {
+        "action": "RAISE",
+        "sizeBB": 7.5,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "셋은 팟을 키우는 것이 핵심이며, 체크-레이즈로 BTN의 넓은 c-bet 레인지에서 가치를 최대화합니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "FLOP",
+      "scriptActions": [
+        "BTN CALL 7.5",
+        "DEAL_TURN Qs"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 Qs. SB의 셋(66). 턴에서 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [12.0],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 12.0,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴은 밸류를 계속 뽑는 스트리트입니다. 체크하면 리버에서 상대가 공짜로 개선하거나, 밸류를 놓치기 쉽습니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

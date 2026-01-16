@@ -1,0 +1,93 @@
+{
+  "id": "S033",
+  "title": "플랍에서 작은 사이즈로 고빈도 C-bet (레인지 우위)",
+  "tags": ["Postflop", "Flop", "Cbet", "RangeAdvantage"],
+  "difficulty": 4,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 60 },
+      { "seat": 2, "pos": "UTG1", "stack": 60 },
+      { "seat": 3, "pos": "UTG2", "stack": 60 },
+      { "seat": 4, "pos": "LJ",   "stack": 60 },
+      { "seat": 5, "pos": "HJ",   "stack": 60 },
+      { "seat": 6, "pos": "CO",   "stack": 60 },
+      { "seat": 7, "pos": "BTN",  "stack": 60, "isUser": true },
+      { "seat": 8, "pos": "SB",   "stack": 60 },
+      { "seat": 9, "pos": "BB",   "stack": 60 }
+    ]
+  },
+  "initialState": {
+    "street": "FLOP",
+    "board": ["Ks", "5d", "2c"],
+    "pot": 5.5,
+    "heroHoleCards": ["Qh", "Td"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.5",
+      "SB folds",
+      "BB CALL 2.5",
+      "Flop: Ks 5d 2c",
+      "BB CHECK"
+    ],
+    "toActPos": "BTN",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "FLOP",
+      "prompt": "K52r. BTN의 QTo. 소액(1.8) c-bet 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [1.8],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 1.8,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "드라이 K-high 보드는 BTN이 상위 레인지를 더 많이 포함해 소액 고빈도 c-bet이 유효합니다.",
+        "필요 폴드 비율이 낮아(1.8/(5.5+1.8)) 즉시 EV가 좋습니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "FLOP",
+      "scriptActions": [
+        "BB CALL 1.8",
+        "DEAL_TURN 9s",
+        "BB CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 9s로 오픈엔디드(8 필요). 2배럴?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [5.5],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 5.5,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "턴에서 에퀴티(오픈엔디드)가 생기면 배럴 후보가 됩니다.",
+        "블러프 배럴은 ‘폴드에퀴티 + 드로우 에퀴티’가 결합될 때 강해집니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

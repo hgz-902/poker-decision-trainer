@@ -1,0 +1,60 @@
+{
+  "id": "S035",
+  "title": "40BB: CO 오픈 후 BTN 3bet에 4bet 블러프(블로커) vs 폴드",
+  "tags": ["Preflop", "40BB", "4bet", "Blocker", "GTO"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 40 },
+      { "seat": 2, "pos": "UTG1", "stack": 40 },
+      { "seat": 3, "pos": "UTG2", "stack": 40 },
+      { "seat": 4, "pos": "LJ",   "stack": 40 },
+      { "seat": 5, "pos": "HJ",   "stack": 40 },
+      { "seat": 6, "pos": "CO",   "stack": 40, "isUser": true },
+      { "seat": 7, "pos": "BTN",  "stack": 40 },
+      { "seat": 8, "pos": "SB",   "stack": 40 },
+      { "seat": 9, "pos": "BB",   "stack": 40 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 1.5,
+    "heroHoleCards": ["As", "4s"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO RAISE_TO 2.5",
+      "BTN RAISE_TO 8.5"
+    ],
+    "toActPos": "CO",
+    "currentBet": 8.5
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "40BB. CO 오픈 후 BTN 3bet 8.5. CO의 A4s로 어떻게 할까요?",
+      "legalActions": ["FOLD", "CALL", "RAISE"],
+      "raiseOptions": [18.5],
+      "correct": {
+        "action": "RAISE",
+        "sizeBB": 18.5,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "A4s는 A블로커를 이용해 4bet 블러프 후보가 될 수 있습니다.",
+        "콜은 40BB에서 역 implied odds 문제가 생기고, 폴드는 너무 소극적일 수 있습니다(상대가 3bet을 자주 한다면)."
+      ],
+      "terminal": true
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "S041",
+  "title": "FT 느낌 ICM: BB에서 SB 셔브 콜/폴드 (오버폴드 익스플로잇 방지)",
+  "tags": ["Tournament", "Preflop", "ICM-ish", "VsShove", "BluffCatch"],
+  "difficulty": 7,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 22 },
+      { "seat": 2, "pos": "UTG1", "stack": 16 },
+      { "seat": 3, "pos": "UTG2", "stack": 14 },
+      { "seat": 4, "pos": "LJ",   "stack": 18 },
+      { "seat": 5, "pos": "HJ",   "stack": 20 },
+      { "seat": 6, "pos": "CO",   "stack": 25 },
+      { "seat": 7, "pos": "BTN",  "stack": 30 },
+      { "seat": 8, "pos": "SB",   "stack": 12 },
+      { "seat": 9, "pos": "BB",   "stack": 18, "isUser": true }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 1.5,
+    "heroHoleCards": ["As", "8d"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN folds",
+      "SB ALL_IN 12.0"
+    ],
+    "toActPos": "BB",
+    "currentBet": 12.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "SB가 12BB 셔브. BB의 A8o로 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "SB 셔브 레인지가 넓어지기 쉬운 구도(블라인드 대결)라 A8o는 콜 후보입니다.",
+        "심리 함정: ‘큰 팟/ICM 무서움’ 때문에 과폴드하면 SB는 자동으로 셔브가 수익이 됩니다.",
+        "익스플로잇: 필드가 과폴드한다면, 오히려 더 넓게 콜해도 되는 지점이 생깁니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

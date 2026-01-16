@@ -1,0 +1,93 @@
+{
+  "id": "S042",
+  "title": "3bet 팟 OOP: 플랍 A-high에서 소액 c-bet vs 체크 (범위 우위)",
+  "tags": ["Postflop", "Flop", "3betPot", "Cbet", "RangeAdvantage"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 90 },
+      { "seat": 2, "pos": "UTG1", "stack": 90 },
+      { "seat": 3, "pos": "UTG2", "stack": 90 },
+      { "seat": 4, "pos": "LJ",   "stack": 90 },
+      { "seat": 5, "pos": "HJ",   "stack": 90, "isUser": true },
+      { "seat": 6, "pos": "CO",   "stack": 90 },
+      { "seat": 7, "pos": "BTN",  "stack": 90 },
+      { "seat": 8, "pos": "SB",   "stack": 90 },
+      { "seat": 9, "pos": "BB",   "stack": 90 }
+    ]
+  },
+  "initialState": {
+    "street": "FLOP",
+    "board": ["Ah", "6d", "2c"],
+    "pot": 16.0,
+    "heroHoleCards": ["Kc", "Kd"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ RAISE_TO 2.5",
+      "CO folds",
+      "BTN RAISE_TO 8.5",
+      "SB folds",
+      "BB folds",
+      "HJ CALL 8.5",
+      "Flop: Ah 6d 2c",
+      "HJ CHECK"
+    ],
+    "toActPos": "HJ",
+    "currentBet": 0.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "FLOP",
+      "prompt": "3bet 팟 OOP. A62r에서 HJ의 KK. 플랍에서 어떻게 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [3.5],
+      "correct": {
+        "action": "BET",
+        "sizeBB": 3.5,
+        "grading": "EXACT"
+      },
+      "explain": [
+        "A-high 보드는 3bettor의 A/KQ 같은 강한 축이 많아 소액 베팅 빈도가 높습니다.",
+        "KK는 취약하지만 즉시 포기할 핸드는 아니고, 소액으로 레인지 압박/프로텍션을 겸할 수 있습니다."
+      ],
+      "next": "N2"
+    },
+    {
+      "nodeId": "N2",
+      "type": "SCRIPT",
+      "street": "FLOP",
+      "scriptActions": [
+        "BTN CALL 3.5",
+        "DEAL_TURN 9s",
+        "HJ CHECK"
+      ],
+      "next": "N3"
+    },
+    {
+      "nodeId": "N3",
+      "type": "DECISION",
+      "street": "TURN",
+      "prompt": "턴 9s. OOP에서 KK로 2배럴을 할까요?",
+      "legalActions": ["CHECK", "BET"],
+      "raiseOptions": [10.5],
+      "correct": {
+        "action": "CHECK",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "플랍 콜을 받은 뒤 BTN은 Ax 비중이 상승합니다. KK는 2배럴 가치가 급감합니다.",
+        "심리 함정: ‘오버페어니까 계속’은 A-high에서 특히 위험. 체크로 쇼다운/컨트롤이 표준입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

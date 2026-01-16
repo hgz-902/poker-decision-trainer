@@ -1,0 +1,69 @@
+{
+  "id": "S038",
+  "title": "리버에서 작은 사이즈 블러프캐치: 팟오즈 계산 훈련",
+  "tags": ["Postflop", "River", "BluffCatch", "PotOdds"],
+  "difficulty": 5,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 60 },
+      { "seat": 2, "pos": "UTG1", "stack": 60 },
+      { "seat": 3, "pos": "UTG2", "stack": 60 },
+      { "seat": 4, "pos": "LJ",   "stack": 60 },
+      { "seat": 5, "pos": "HJ",   "stack": 60, "isUser": true },
+      { "seat": 6, "pos": "CO",   "stack": 60 },
+      { "seat": 7, "pos": "BTN",  "stack": 60 },
+      { "seat": 8, "pos": "SB",   "stack": 60 },
+      { "seat": 9, "pos": "BB",   "stack": 60 }
+    ]
+  },
+  "initialState": {
+    "street": "RIVER",
+    "board": ["Ah", "7d", "3s", "9c", "2h"],
+    "pot": 18.5,
+    "heroHoleCards": ["Ad", "8c"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ RAISE_TO 2.5",
+      "CO CALL 2.5",
+      "BTN folds",
+      "SB folds",
+      "BB folds",
+      "Flop: Ah 7d 3s",
+      "HJ BET 2.0",
+      "CO CALL 2.0",
+      "Turn: 9c",
+      "HJ CHECK",
+      "CO CHECK",
+      "River: 2h",
+      "HJ CHECK",
+      "CO BET 4.0"
+    ],
+    "toActPos": "HJ",
+    "currentBet": 4.0
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "RIVER",
+      "prompt": "리버에서 CO가 4.0BB 베팅(작은 사이즈). HJ의 A8로 콜/폴드?",
+      "legalActions": ["FOLD", "CALL"],
+      "correct": {
+        "action": "CALL",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "작은 베팅은 블러프가 섞이는 빈도가 높고, 팟오즈가 좋아 콜이 넓어집니다.",
+        "이 스팟은 '작은 사이즈일수록 더 많이 방어'하는 원리를 훈련합니다."
+      ],
+      "terminal": true
+    }
+  ]
+}

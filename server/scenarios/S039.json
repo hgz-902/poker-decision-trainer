@@ -1,0 +1,58 @@
+{
+  "id": "S039",
+  "title": "30BB: SB vs BTN 오픈 — 3bet 올인 블러프를 자제 (익스플로잇 역이용 방지)",
+  "tags": ["Tournament", "Preflop", "30BB", "3betShove", "Exploit"],
+  "difficulty": 6,
+  "table": {
+    "sb": 0.5,
+    "bb": 1.0,
+    "players": [
+      { "seat": 1, "pos": "UTG",  "stack": 40 },
+      { "seat": 2, "pos": "UTG1", "stack": 32 },
+      { "seat": 3, "pos": "UTG2", "stack": 28 },
+      { "seat": 4, "pos": "LJ",   "stack": 35 },
+      { "seat": 5, "pos": "HJ",   "stack": 38 },
+      { "seat": 6, "pos": "CO",   "stack": 42 },
+      { "seat": 7, "pos": "BTN",  "stack": 30 },
+      { "seat": 8, "pos": "SB",   "stack": 30, "isUser": true },
+      { "seat": 9, "pos": "BB",   "stack": 45 }
+    ]
+  },
+  "initialState": {
+    "street": "PREFLOP",
+    "board": [],
+    "pot": 1.5,
+    "heroHoleCards": ["As", "5s"],
+    "actionLog": [
+      "SB posts 0.5BB",
+      "BB posts 1BB",
+      "UTG folds",
+      "UTG1 folds",
+      "UTG2 folds",
+      "LJ folds",
+      "HJ folds",
+      "CO folds",
+      "BTN RAISE_TO 2.2"
+    ],
+    "toActPos": "SB",
+    "currentBet": 2.2
+  },
+  "nodes": [
+    {
+      "nodeId": "N1",
+      "type": "DECISION",
+      "street": "PREFLOP",
+      "prompt": "30BB. BTN이 타이트하게 오픈한다고 가정. SB의 A5s로 3bet 올인 할까요?",
+      "legalActions": ["FOLD", "CALL", "ALL_IN"],
+      "correct": {
+        "action": "FOLD",
+        "grading": "EXACT"
+      },
+      "explain": [
+        "타이트 오픈에는 폴드에퀴티가 줄어 3bet 올인 블러프가 나빠집니다.",
+        "익스플로잇은 ‘상대가 많이 폴드하는가’에 기반해야 하며, 타이트 오픈에는 오히려 블러프를 줄이는 쪽이 +EV입니다."
+      ],
+      "terminal": true
+    }
+  ]
+}
