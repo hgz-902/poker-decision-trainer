@@ -3,6 +3,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import ScenarioListPage from "./pages/ScenarioListPage";
 import PlayPage from "./pages/PlayPage";
 import ResultsPage from "./pages/ResultsPage";
+import PreflopDrillPage from "./pages/PreflopDrillPage";
 
 const shellStyle: React.CSSProperties = {
   fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
@@ -18,6 +19,7 @@ export default function App() {
         <h2 style={{ margin: 0 }}>Poker Decision Trainer (MVP)</h2>
         <nav style={{ display: "flex", gap: 12 }}>
           <Link to="/">Scenarios</Link>
+          <Link to="/preflop">Preflop Drill</Link>
           <Link to="/results">Results</Link>
         </nav>
       </header>
@@ -27,6 +29,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<ScenarioListPage />} />
         <Route path="/play/:id" element={<PlayPage />} />
+        <Route path="/preflop" element={<PreflopDrillPage />} />
         <Route path="/results" element={<ResultsPage />} />
       </Routes>
     </div>
